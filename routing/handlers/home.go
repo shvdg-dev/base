@@ -6,9 +6,9 @@ import (
 	"tab-collector/views"
 )
 
-func Playlist(w http.ResponseWriter, r *http.Request) {
+func Home(w http.ResponseWriter, r *http.Request) {
 	Render(models.Page{
-		Title:   "Playlist",
-		Content: views.Playlist(),
+		Title:   "Home",
+		Content: views.Home(),
 	}, w, r)
 }

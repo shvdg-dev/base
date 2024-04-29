@@ -6,5 +6,6 @@ import (
 )
 
 func SetupRouting() {
-	http.HandleFunc("/playlist", handlers.Playlist)
+	http.HandleFunc("/", handlers.Home)
+	http.HandleFunc("/home", handlers.Home)
 }

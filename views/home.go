@@ -5,6 +5,6 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-func Playlist() Node {
-	return Div()
+func Home() Node {
+	return Div(Text("Hello World!"))
 }

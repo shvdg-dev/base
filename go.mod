@@ -1,4 +1,4 @@
-module tab-collector
+module base
 
 go 1.21.3
 

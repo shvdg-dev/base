@@ -1,8 +1,8 @@
-package routing
+package server
 
 import (
-	"base/models"
-	"base/views/layout"
+	"base/internal/models"
+	"base/internal/views/layout"
 	"net/http"
 )
 

@@ -1,7 +1,7 @@
 package layout
 
 import (
-	"base/models"
+	"base/internal/models"
 	. "github.com/maragudk/gomponents"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"

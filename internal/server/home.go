@@ -1,7 +1,6 @@
 package server
 
 import (
-	"base/internal/models"
 	"base/internal/views/pages"
 	"net/http"
 )
@@ -12,8 +11,5 @@ func homeRoutes() {
 }
 
 func homeHandler(writer http.ResponseWriter, request *http.Request) {
-	render(models.Component{
-		Title:   "Home",
-		Content: pages.Home(),
-	}, writer, request)
+	render("Home", pages.Home(), writer, request)
 }

@@ -1,4 +1,4 @@
-package layout
+package document
 
 import (
 	"base/internal/models"
@@ -7,9 +7,9 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-func Document(page models.Page) Node {
+func Document(component models.Component) Node {
 	return HTML5(HTML5Props{
-		Title:    page.Title,
+		Title:    component.Title,
 		Language: "en",
 		Head: []Node{
 			Link(Rel("stylesheet"), Href("/static/styles/output.css"), Type("text/css")),
@@ -17,16 +17,10 @@ func Document(page models.Page) Node {
 		},
 		Body: []Node{
 			Body(Class("h-[80vh]"),
-				Container(Main(ID("content"), Fragment(page.Content))),
-			),
+				Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
+					Div(Class("h-full rounded-lg bg-base-200"),
+						Div(Class("p-5"),
+							Main(ID("component"), Div(Class("h-full"), component.Content)))))),
 		},
 	})
-}
-
-func Container(children ...Node) Node {
-	return Div(Class("h-full pt-5 pb-5 pl-20 pr-20"), Div(Class("h-full rounded-lg bg-base-200"), Div(Class("p-5"), Group(children))))
-}
-
-func Fragment(children ...Node) Node {
-	return Div(Class("h-full"), Group(children))
 }

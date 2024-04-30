@@ -12,7 +12,7 @@ func homeRoutes() {
 }
 
 func homeHandler(writer http.ResponseWriter, request *http.Request) {
-	render(models.Page{
+	render(models.Component{
 		Title:   "Home",
 		Content: pages.Home(),
 	}, writer, request)

@@ -2,19 +2,19 @@ package server
 
 import (
 	"base/internal/models"
-	"base/internal/views/layout"
+	"base/internal/views/document"
 	"net/http"
 )
 
-// render renders a (partial) page.
-func render(page models.Page, w http.ResponseWriter, r *http.Request) {
+// render renders a component, and is wrapped in a document when no swapping is intended.
+func render(component models.Component, w http.ResponseWriter, r *http.Request) {
 	target := r.Header.Get("HX-Target")
 
 	var err error
 	if target != "" {
-		err = layout.Fragment(page.Content).Render(w)
+		err = component.Content.Render(w)
 	} else {
-		err = layout.Document(page).Render(w)
+		err = document.Document(component).Render(w)
 	}
 
 	if err != nil {

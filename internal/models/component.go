@@ -4,7 +4,7 @@ import (
 	. "github.com/maragudk/gomponents"
 )
 
-type Page struct {
+type Component struct {
 	Title   string
 	Content Node
 }

@@ -1,8 +1,8 @@
-package routing
+package routes
 
 import "net/http"
 
-// fileServer sets up a file server for serving static files.
-func fileServer() {
+// FileServer sets up a file server for serving static files.
+func FileServer() {
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 }

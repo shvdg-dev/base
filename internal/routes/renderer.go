@@ -1,4 +1,4 @@
-package handlers
+package routes
 
 import (
 	"base/internal/views/document"
@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-// render renders a component, and is wrapped in a document when no swapping is intended.
-func render(title string, content Node, writer http.ResponseWriter, request *http.Request) {
+// Render renders a component, and is wrapped in a document when no swapping is intended.
+func Render(title string, content Node, writer http.ResponseWriter, request *http.Request) {
 	target := request.Header.Get("HX-Target")
 
 	var err error

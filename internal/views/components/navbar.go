@@ -1,7 +1,7 @@
 package components
 
 import (
-	"base/internal/routing/routes"
+	"base/internal/routes/home"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
 	. "github.com/maragudk/gomponents/html"
@@ -22,7 +22,7 @@ func NavBar() Node {
 
 func navBarStart() Node {
 	return Div(Class("navbar-start pl-12"),
-		A(hx.Get(routes.Home()), hx.PushURL(""), hx.Target("#content"),
+		A(hx.Get(home.Path()), hx.PushURL(""), hx.Target("#content"),
 			Class("btn btn-ghost text-xl normal-case"),
 			Label(Class("text-base-content"), Text("TUNES")),
 			Label(Class("text-primary"), Text("2")),
@@ -34,7 +34,7 @@ func navBarCenter() Node {
 	return Div(Class("navbar-center"),
 		Ul(Class("menu menu-horizontal px-1"),
 			Group(Map([]pageLink{
-				{Path: routes.Home(), Name: "Home"},
+				{Path: home.Path(), Name: "Home"},
 			}, func(pl pageLink) Node { return navLink(pl.Path, pl.Name) }))))
 }
 

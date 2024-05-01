@@ -11,8 +11,8 @@ func Document(title string, content Node) Node {
 		Title:    title,
 		Language: "en",
 		Head: []Node{
-			Link(Rel("stylesheet"), Href("/static/styles/output.css"), Type("text/css")),
-			Script(Src("/static/scripts/htmx.min.js")),
+			Link(Rel("stylesheet"), Href("/public/styles/output.css"), Type("text/css")),
+			Script(Src("/public/scripts/htmx.min.js")),
 		},
 		Body: []Node{
 			Body(Class("h-[80vh]"),

@@ -1,6 +1,6 @@
-package server
+package routing
 
 func SetupRouter() {
 	fileServer()
-	homeRoutes()
+	home()
 }

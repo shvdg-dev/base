@@ -1,7 +1,7 @@
 package main
 
 import (
-	"base/internal/server"
+	"base/internal/routing"
 	"log"
 	"net/http"
 )
@@ -11,7 +11,7 @@ const (
 )
 
 func main() {
-	server.SetupRouter()
+	routing.SetupRouter()
 	log.Printf("Starting the server on localhost:%s...\n", port)
 	err := http.ListenAndServe(port, nil)
 	if err != nil {

@@ -20,7 +20,7 @@ func Document(title string, content Node) Node {
 				components.NavBar(),
 				Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
 					Div(Class("h-full rounded-lg bg-base-200"),
-						Main(ID("content"), Class("h-full p-5"), content)))),
+						Main(Class("h-full p-5"), ID("content"), content)))),
 		},
 	})
 }

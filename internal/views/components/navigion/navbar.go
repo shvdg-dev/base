@@ -1,6 +1,7 @@
-package components
+package navigion
 
 import (
+	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
 	. "github.com/maragudk/gomponents/html"
@@ -26,7 +27,7 @@ func navBarStart() Node {
 			Label(Class("text-base-content"), Text("TUNES")),
 			Label(Class("text-primary"), Text("2")),
 			Label(Class("text-base-content"), Text("TABS"))),
-	)
+		Label(Class("text-base-content"), icons.Hammer()))
 }
 
 func navBarCenter() Node {
@@ -39,7 +40,7 @@ func navBarCenter() Node {
 }
 
 func navBarEnd() Node {
-	return Div()
+	return Div(Class("navbar-end pr-12"), Options())
 }
 
 func navLink(href, name string) Node {

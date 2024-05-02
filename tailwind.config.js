@@ -19,7 +19,7 @@ module.exports = {
     themes: [
       {
         'custom-theme': {
-          'primary': '#fcbbe8',
+          'primary': '#f36666',
           'primary-focus': '#4506cb',
           'primary-content': '#ffffff',
           'secondary': '#f000b8',

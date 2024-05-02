@@ -28,3 +28,4 @@ go.work
 /node_modules/
 /public/*
 !/public/styles/input.css
+!/public/scripts/document.js

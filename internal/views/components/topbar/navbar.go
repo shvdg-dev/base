@@ -1,4 +1,4 @@
-package navigion
+package topbar
 
 import (
 	icons "github.com/eduardolat/gomponents-lucide"
@@ -24,10 +24,11 @@ func navBarStart() Node {
 	return Div(Class("navbar-start pl-12"),
 		A(hx.Get("/home"), hx.PushURL("true"), hx.Target("#content"),
 			Class("btn btn-ghost text-xl normal-case"),
-			Label(Class("text-base-content"), Text("TUNES")),
+			Label(Class("text-base-content"), Text("BACK")),
 			Label(Class("text-primary"), Text("2")),
-			Label(Class("text-base-content"), Text("TABS"))),
-		Label(Class("text-base-content"), icons.Hammer()))
+			Label(Class("text-base-content"), Text("BASICS")),
+			Label(Class("text-base-content"), icons.Globe())),
+	)
 }
 
 func navBarCenter() Node {

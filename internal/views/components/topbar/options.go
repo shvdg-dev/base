@@ -1,4 +1,4 @@
-package navigion
+package topbar
 
 import (
 	icons "github.com/eduardolat/gomponents-lucide"

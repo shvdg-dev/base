@@ -6,5 +6,8 @@ import (
 )
 
 func Wrapper(content Node) Node {
-	return Div(content, Script(Src("/public/scripts/script.js")))
+	return Div(content,
+		Link(Rel("stylesheet"), Href("/public/styles/output.css"), Type("text/css"), Defer()),
+		Script(Src("/public/scripts/htmx.min.js"), Defer()),
+		Script(Src("/public/scripts/document.js"), Defer()))
 }

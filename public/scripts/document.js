@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
     if (!document.querySelector("main")) {
-        location.reload();
+        htmx.ajax('GET', window.location.href, {swap: 'body.innerHTML'});
     }
-});
+}, {once: true});

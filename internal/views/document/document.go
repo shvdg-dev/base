@@ -11,6 +11,10 @@ func Document(title string, content Node) Node {
 	return HTML5(HTML5Props{
 		Title:    title,
 		Language: "en",
+		Head: []Node{
+			Link(Rel("stylesheet"), Href("/public/styles/output.css"), Type("text/css"), Defer()),
+			Script(Src("/public/scripts/htmx.min.js"), Defer()),
+		},
 		Body: []Node{
 			Body(
 				Div(Class("h-[80vh]"), topbar.NavBar(),

@@ -5,6 +5,6 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-func Docs() Node {
+func Page() Node {
 	return Div(Text("Hello Docs!"))
 }

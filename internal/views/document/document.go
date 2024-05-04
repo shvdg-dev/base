@@ -1,7 +1,7 @@
 package document
 
 import (
-	"base/internal/views/components/topbar"
+	"base/internal/views/document/topbar"
 	. "github.com/maragudk/gomponents"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"

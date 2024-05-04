@@ -1,11 +1,11 @@
-package home
+package login
 
 import (
 	"base/internal/handlers"
-	"base/internal/views/home"
+	"base/internal/views/login"
 	"net/http"
 )
 
 func Navigation(writer http.ResponseWriter, request *http.Request) {
-	handlers.Render("Home", home.Page(), writer, request)
+	handlers.Render("Login", login.Page(), writer, request)
 }

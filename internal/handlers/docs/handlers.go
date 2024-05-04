@@ -6,6 +6,6 @@ import (
 	"net/http"
 )
 
-func Handler(writer http.ResponseWriter, request *http.Request) {
-	handlers.Render("Docs", docs.Docs(), writer, request)
+func Navigation(writer http.ResponseWriter, request *http.Request) {
+	handlers.Render("Docs", docs.Page(), writer, request)
 }

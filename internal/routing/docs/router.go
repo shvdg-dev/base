@@ -6,5 +6,5 @@ import (
 )
 
 func Router() {
-	http.HandleFunc("/docs", docs.Handler)
+	http.HandleFunc("/docs", docs.Navigation)
 }

@@ -13,7 +13,7 @@ type pageLink struct {
 }
 
 func NavBar() Node {
-	return Div(Class("h-15 navbar bg-base-200"),
+	return Div(Class("h-15 navbar bg-base-200"), hx.PushURL("true"), hx.Target("#content"),
 		navBarStart(),
 		navBarCenter(),
 		navBarEnd(),
@@ -22,7 +22,7 @@ func NavBar() Node {
 
 func navBarStart() Node {
 	return Div(Class("navbar-start pl-12"),
-		A(hx.Get("/home"), hx.PushURL("true"), hx.Target("#content"),
+		A(hx.Get("/home"),
 			Class("btn btn-ghost text-xl normal-case"),
 			Label(Class("text-base-content"), Text("BACK")),
 			Label(Class("text-primary"), Text("2")),
@@ -45,5 +45,5 @@ func navBarEnd() Node {
 }
 
 func navLink(href, name string) Node {
-	return Li(A(hx.Get(href), hx.PushURL("true"), hx.Target("#content"), Text(name)))
+	return Li(A(hx.Get(href), Text(name)))
 }

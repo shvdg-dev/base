@@ -5,8 +5,8 @@
   "main": "tailwind.config.js",
   "scripts": {
     "build:tailwind": "npx tailwindcss -i ./public/styles/input.css -o ./public/styles/output.css",
-    "copy:static": "copy node_modules\\htmx.org\\dist\\htmx.min.js public\\scripts\\htmx.min.js",
-    "build": "npm run build:tailwind && npm run copy:static && go build -C ./cmd/app"
+    "copy:htmx": "copy node_modules\\htmx.org\\dist\\htmx.min.js public\\scripts\\htmx.min.js",
+    "build": "npm run build:tailwind && npm run copy:htmx && go build -C ./cmd/app"
   },
   "devDependencies": {
     "daisyui": "^4.10.2",

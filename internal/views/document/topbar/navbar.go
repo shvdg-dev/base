@@ -1,9 +1,11 @@
 package topbar
 
 import (
+	"base/internal/models"
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
+	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
 )
 
@@ -12,15 +14,24 @@ type pageLink struct {
 	Name string
 }
 
-func NavBar() Node {
+type navbar struct {
+	currentPage models.Page
+}
+
+func NavBar(currentPage models.Page) Node {
+	navbar := navbar{currentPage: currentPage}
+	return navbar.navBar()
+}
+
+func (n *navbar) navBar() Node {
 	return Div(Class("h-15 navbar bg-base-200"), hx.PushURL("true"), hx.Target("#content"),
-		navBarStart(),
-		navBarCenter(),
-		navBarEnd(),
+		n.navBarStart(),
+		n.navBarCenter(),
+		n.navBarEnd(),
 	)
 }
 
-func navBarStart() Node {
+func (n *navbar) navBarStart() Node {
 	return Div(Class("navbar-start pl-12"),
 		A(hx.Get("/home"),
 			Class("btn btn-ghost text-xl normal-case"),
@@ -31,19 +42,21 @@ func navBarStart() Node {
 	)
 }
 
-func navBarCenter() Node {
+func (n *navbar) navBarCenter() Node {
 	return Div(Class("navbar-center"),
 		Ul(Class("menu menu-horizontal px-1"),
 			Group(Map([]pageLink{
 				{Path: "/home", Name: "Home"},
 				{Path: "/docs", Name: "Docs"},
-			}, func(pl pageLink) Node { return navLink(pl.Path, pl.Name) }))))
+			}, func(pl pageLink) Node {
+				return navLink(pl.Path, pl.Name, n.currentPage.Path == pl.Path)
+			}))))
 }
 
-func navBarEnd() Node {
+func (n *navbar) navBarEnd() Node {
 	return Div(Class("navbar-end pr-12"), Options())
 }
 
-func navLink(href, name string) Node {
-	return Li(A(hx.Get(href), Text(name)))
+func navLink(href, name string, isActive bool) Node {
+	return Li(A(hx.Get(href), Text(name)), Classes{"underline": isActive})
 }

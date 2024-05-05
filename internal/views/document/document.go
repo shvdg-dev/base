@@ -1,6 +1,7 @@
 package document
 
 import (
+	"base/internal/models"
 	"base/internal/views/document/topbar"
 	. "github.com/maragudk/gomponents"
 	. "github.com/maragudk/gomponents/components"
@@ -17,9 +18,9 @@ import (
 //
 // Returns:
 //   - The generated HTML document as a Node.
-func Document(title string, content Node) Node {
+func Document(page models.Page, content Node) Node {
 	return HTML5(HTML5Props{
-		Title:    title,
+		Title:    page.Title,
 		Language: "en",
 		Head: []Node{
 			Link(Rel("stylesheet"), Href("/public/styles/generated/output.css"), Type("text/css"), Defer()),
@@ -29,7 +30,7 @@ func Document(title string, content Node) Node {
 		},
 		Body: []Node{
 			Body(
-				Div(Class("h-[80vh]"), topbar.NavBar(),
+				Div(Class("h-[80vh]"), topbar.NavBar(page),
 					Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
 						Div(Class("h-full rounded-lg bg-base-200"),
 							Main(Class("h-full p-5"), ID("content"), Slot(content)))))),

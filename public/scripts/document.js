@@ -14,17 +14,25 @@ function updateTitle(request) {
 }
 
 /**
- * Update the menu to highlight the selected navigation-item.
- * @param request The request which has the newly selected navigation-item.
+ * Update the menu to highlight the selected menu-item.
+ * @param request The request for determining highlighting.
  */
-function updateMenu(request){
-    let path = request?.detail?.pathInfo?.responsePath;
-    const menuItems = document.querySelectorAll('[id^="menu-item-"]');
-    menuItems.forEach(item => {
-        item.classList.add("border-transparent");
-        item.classList.remove("border-primary");
-        if(path.startsWith(item.id.replace(/menu-item-/g, ''))){
-            item.classList.add("border-primary");
+function updateMenu(request) {
+    const path = request?.detail?.pathInfo?.responsePath;
+    const menuItemPrefix = 'menu-item-';
+    const menuItems = document.querySelectorAll(`[id^="${menuItemPrefix}"]`);
+
+    menuItems.forEach(modifyMenuItem);
+
+    function modifyMenuItem(menuItem) {
+        menuItem.classList.add("border-transparent");
+
+        const menuItemIdWithoutPrefix = menuItem.id.replace(new RegExp(menuItemPrefix, 'g'), '');
+        const shouldHighlightItem = path !== null && path.startsWith(menuItemIdWithoutPrefix);
+
+        if (shouldHighlightItem) {
+            menuItem.classList.remove("border-transparent");
+            menuItem.classList.add("border-primary");
         }
-    });
+    }
 }

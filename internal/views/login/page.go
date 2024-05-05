@@ -48,18 +48,18 @@ func loginButton() Node {
 
 func registerLink() Node {
 	return A(hx.PushURL("true"), hx.Target("#content"),
-		Div(Class(""),
+		Div(Class("italic"),
 			Text("Not yet an account?"),
 			Text(" "),
-			Label(Text("Register"), Class("italic underline text-info")),
+			Label(Text("Register"), Class("underline text-info")),
 			Text(".")))
 }
 
 func resetLink() Node {
 	return A(hx.PushURL("true"), hx.Target("#content"),
-		Div(Class(""),
+		Div(Class("italic"),
 			Text("Forgot your password?"),
 			Text(" "),
-			Label(Text("Reset your password"), Class("italic underline text-info")),
+			Label(Text("Reset your password"), Class("underline text-info")),
 			Text(".")))
 }

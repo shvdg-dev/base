@@ -33,7 +33,8 @@ func Document(page models.Page, content Node) Node {
 				Div(Class("h-[80vh]"), topbar.NavBar(page.Path),
 					Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
 						Div(Class("h-full rounded-lg bg-base-200"),
-							Main(Class("h-full p-5"), ID("content"), Slot(content)))))),
+							Main(Class("h-full p-5"), ID("content"),
+								Slot(content)))))),
 		},
 	})
 }

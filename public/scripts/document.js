@@ -1,5 +1,6 @@
 // After a request with HTMX
 document.addEventListener('htmx:afterRequest', (evt) => updateTitle(evt));
+document.addEventListener('htmx:afterRequest', (evt) => updateMenu(evt));
 
 /**
  * Update the title, a.k.a. the tab name.
@@ -10,4 +11,19 @@ function updateTitle(request) {
     if (newTitle) {
         document.title = newTitle;
     }
+}
+
+/**
+ * Update the menu to highlight the selected navigation-item.
+ * @param request The request which has the newly selected navigation-item.
+ */
+function updateMenu(request){
+    let path = request?.detail?.pathInfo?.responsePath;
+    const menuItems = document.querySelectorAll('[id^="menu-item-"]');
+    menuItems.forEach(item => {
+        item.classList.remove("underline");
+        if(path.startsWith(item.id.replace(/menu-item-/g, ''))){
+            item.classList.add("underline");
+        }
+    });
 }

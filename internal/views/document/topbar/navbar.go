@@ -1,6 +1,7 @@
 package topbar
 
 import (
+	"fmt"
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
@@ -12,6 +13,7 @@ type navbar struct {
 	currentPath string
 	pageLinks   []pageLink
 }
+
 type pageLink struct {
 	Path     string
 	Name     string
@@ -28,14 +30,6 @@ func NavBar(currentPath string) Node {
 	return navbar.navBar()
 }
 
-func (n *navbar) setActiveLink() {
-	for index, link := range n.pageLinks {
-		if link.Path == n.currentPath {
-			n.pageLinks[index].IsActive = true
-		}
-	}
-}
-
 func (n *navbar) navBar() Node {
 	n.setActiveLink()
 	return Div(Class("h-15 navbar bg-base-200"), hx.PushURL("true"), hx.Target("#content"),
@@ -43,6 +37,14 @@ func (n *navbar) navBar() Node {
 		n.navBarCenter(),
 		n.navBarEnd(),
 	)
+}
+
+func (n *navbar) setActiveLink() {
+	for index, link := range n.pageLinks {
+		if link.Path == n.currentPath {
+			n.pageLinks[index].IsActive = true
+		}
+	}
 }
 
 func (n *navbar) navBarStart() Node {
@@ -69,7 +71,9 @@ func (n *navbar) navBarEnd() Node {
 }
 
 func navLink(pageLink pageLink) Node {
-	return Li(A(hx.Get(pageLink.Path),
+	return Li(A(
+		ID(fmt.Sprintf("menu-item-%s", pageLink.Path)),
+		hx.Get(pageLink.Path),
 		Text(pageLink.Name),
 		Classes{"underline": pageLink.IsActive}),
 	)

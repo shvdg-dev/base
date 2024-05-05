@@ -75,6 +75,6 @@ func navLink(pageLink pageLink) Node {
 		A(ID(fmt.Sprintf("menu-item-%s", pageLink.Path)),
 			hx.Get(pageLink.Path),
 			Text(pageLink.Name),
-			Classes{"border-b-4": pageLink.IsActive, "border-primary": pageLink.IsActive}),
+			Classes{"border-b-4": true}),
 	)
 }

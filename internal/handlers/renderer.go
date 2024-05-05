@@ -12,7 +12,7 @@ func Render(title string, content Node, writer http.ResponseWriter, request *htt
 
 	var err error
 	if target != "" {
-		err = document.Wrapper(content).Render(writer)
+		err = document.Slot(content).Render(writer)
 	} else {
 		err = document.Document(title, content).Render(writer)
 	}

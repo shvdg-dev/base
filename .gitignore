@@ -26,6 +26,8 @@ go.work
 .air.toml
 /tmp
 /node_modules/
-/public/*
-!/public/styles/input.css
-!/public/scripts/document.js
+*.min.js
+/public/styles/generated/
+/public/styles/lib/
+/public/scripts/generated/
+/public/scripts/lib/

@@ -7,6 +7,16 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
+// Document creates an HTML document with the given title and content.
+// The document includes the necessary scripts and stylesheets for the page to function properly.
+// The content area is passed as a slot, which can be updated dynamically using HTMX.
+//
+// Parameters:
+//   - title: the title of the document
+//   - content: the main content of the document
+//
+// Returns:
+//   - The generated HTML document as a Node.
 func Document(title string, content Node) Node {
 	return HTML5(HTML5Props{
 		Title:    title,

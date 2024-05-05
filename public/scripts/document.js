@@ -1,19 +1,13 @@
 // After a request with HTMX
-document.addEventListener('htmx:afterRequest', (evt) => afterRequest(evt), {once: true});
+document.addEventListener('htmx:afterRequest', (evt) => updateTitle(evt));
 
 /**
- * Perform tasks after processing a request with HTMX.
- * @param evt The details of the event.
+ * Update the title, a.k.a. the tab name.
+ * @param request The request which has the new title.
  */
-function afterRequest(evt) {
-    updateTitle();
-    updateMenu();
-}
-
-function updateTitle() {
-
-}
-
-function updateMenu(){
-
+function updateTitle(request) {
+    let newTitle = request.detail.xhr.getResponseHeader('H-Title');
+    if (newTitle) {
+        document.title = newTitle;
+    }
 }

@@ -21,9 +21,9 @@ function updateMenu(request){
     let path = request?.detail?.pathInfo?.responsePath;
     const menuItems = document.querySelectorAll('[id^="menu-item-"]');
     menuItems.forEach(item => {
-        item.classList.remove("underline");
+        item.classList.remove("border-b-4", "border-primary");
         if(path.startsWith(item.id.replace(/menu-item-/g, ''))){
-            item.classList.add("underline");
+            item.classList.add("border-b-4", "border-primary");
         }
     });
 }

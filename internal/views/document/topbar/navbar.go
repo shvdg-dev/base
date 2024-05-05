@@ -32,7 +32,7 @@ func NavBar(currentPath string) Node {
 
 func (n *navbar) navBar() Node {
 	n.setActiveLink()
-	return Div(Class("h-15 navbar bg-base-200"), hx.PushURL("true"), hx.Target("#content"),
+	return Div(Class("h-20 navbar bg-base-200"), hx.PushURL("true"), hx.Target("#content"),
 		n.navBarStart(),
 		n.navBarCenter(),
 		n.navBarEnd(),
@@ -71,10 +71,10 @@ func (n *navbar) navBarEnd() Node {
 }
 
 func navLink(pageLink pageLink) Node {
-	return Li(A(
-		ID(fmt.Sprintf("menu-item-%s", pageLink.Path)),
-		hx.Get(pageLink.Path),
-		Text(pageLink.Name),
-		Classes{"underline": pageLink.IsActive}),
+	return Li(
+		A(ID(fmt.Sprintf("menu-item-%s", pageLink.Path)),
+			hx.Get(pageLink.Path),
+			Text(pageLink.Name),
+			Classes{"border-b-4": pageLink.IsActive, "border-primary": pageLink.IsActive}),
 	)
 }

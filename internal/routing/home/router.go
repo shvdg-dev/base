@@ -6,6 +6,6 @@ import (
 )
 
 func Router() {
-	http.HandleFunc("/", home.Navigation)
-	http.HandleFunc("/home", home.Navigation)
+	http.HandleFunc("/", home.Handler)
+	http.HandleFunc("/home", home.Handler)
 }

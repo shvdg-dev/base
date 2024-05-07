@@ -6,3 +6,5 @@ github.com/maragudk/gomponents v0.20.2 h1:39FhnBNNCJzqNcD9Hmvp/5xj0otweFoyvVgFG6
 github.com/maragudk/gomponents v0.20.2/go.mod h1:nHkNnZL6ODgMBeJhrZjkMHVvNdoYsfmpKB2/hjdQ0Hg=
 github.com/maragudk/gomponents-htmx v0.5.0 h1:sWtiRa72YmymgxccjTNZW3h0akKsZvnhYke9RQiS9dk=
 github.com/maragudk/gomponents-htmx v0.5.0/go.mod h1:XgI7WE6ECWlyeVQ9Ix3R6aoKS4HtCSYtuQ4iH27GVDE=
+nhooyr.io/websocket v1.8.11 h1:f/qXNc2/3DpoSZkHt1DQu6rj4zGC8JmkkLkWss0MgN0=
+nhooyr.io/websocket v1.8.11/go.mod h1:rN9OFWIUwuxg4fR5tELlYC04bXYowCP9GX47ivo2l+c=

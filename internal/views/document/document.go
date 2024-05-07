@@ -25,6 +25,7 @@ func Document(page models.Page, content Node) Node {
 		Head: []Node{
 			Link(Rel("stylesheet"), Href("/public/styles/generated/output.css"), Type("text/css"), Defer()),
 			Script(Src("/public/scripts/document.js"), Defer()),
+			Script(Src("/public/scripts/websockets.js"), Defer()),
 			Script(Src("/public/scripts/lib/htmx.min.js"), Defer()),
 			Script(Src("/public/scripts/lib/alpinejs.min.js"), Defer()),
 		},

@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-func Navigation(writer http.ResponseWriter, request *http.Request) {
+func Handler(writer http.ResponseWriter, request *http.Request) {
 	handlers.Render(models.Page{
 		Path:  "/docs",
 		Title: "Docs",

@@ -57,7 +57,7 @@ func registerLink() Node {
 		Div(Class("italic"),
 			Text("Not yet an account?"),
 			Text(" "),
-			Label(Text("Register"), Class("underline text-info cursor-pointer")),
+			Label(Text("Register"), Class("link link-info cursor-pointer")),
 			Text(".")))
 }
 
@@ -66,6 +66,6 @@ func resetLink() Node {
 		Div(Class("italic"),
 			Text("Forgot your password?"),
 			Text(" "),
-			Label(Text("Reset your password"), Class("underline text-info cursor-pointer")),
+			Label(Text("Reset your password"), Class("link link-info cursor-pointer")),
 			Text(".")))
 }

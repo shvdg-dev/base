@@ -2,7 +2,6 @@ package topbar
 
 import (
 	"fmt"
-	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
 	. "github.com/maragudk/gomponents/components"
@@ -48,13 +47,11 @@ func (n *navbar) setActiveLink() {
 }
 
 func (n *navbar) navBarStart() Node {
-	return Div(Class("navbar-start pl-12"),
-		A(hx.Get("/home"),
-			Class("btn btn-ghost text-xl normal-case"),
-			Label(Class("text-base-content"), Text("BACK")),
-			Label(Class("text-primary"), Text("2")),
-			Label(Class("text-base-content"), Text("BASICS")),
-			Label(Class("text-base-content"), icons.Globe())),
+	return Div(Class("navbar-start pl-12 cursor-pointer"),
+		A(hx.Get("/home"), Class("text-xl flex space-x-2"),
+			Div(Class("text-base-content"), Text("BACK")),
+			Div(Class("text-primary"), Text("2")),
+			Div(Class("text-base-content"), Text("BASICS"))),
 	)
 }
 

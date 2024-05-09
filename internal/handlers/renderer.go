@@ -4,12 +4,13 @@ import (
 	"base/internal/models"
 	"base/internal/views/document"
 	. "github.com/maragudk/gomponents"
+	hxhttp "github.com/maragudk/gomponents-htmx/http"
 	"net/http"
 )
 
-// Render renders a component, and is wrapped in a document when no swapping is intended.
+// Render renders a component, and is wrapped in a document when no target is defined.
 func Render(page models.Page, content Node, writer http.ResponseWriter, request *http.Request) {
-	target := request.Header.Get("HX-Target")
+	target := hxhttp.GetTarget(request.Header)
 
 	var err error
 	if target != "" {

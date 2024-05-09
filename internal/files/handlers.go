@@ -2,6 +2,6 @@ package files
 
 import "net/http"
 
-func Handler() http.Handler {
-	return http.StripPrefix("/public/", http.FileServer(http.Dir("public")))
+func Handler(w http.ResponseWriter, r *http.Request) {
+	http.StripPrefix("/public/", http.FileServer(http.Dir("public"))).ServeHTTP(w, r)
 }

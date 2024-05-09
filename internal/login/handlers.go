@@ -6,9 +6,13 @@ import (
 	"net/http"
 )
 
-func Handler(writer http.ResponseWriter, request *http.Request) {
+func HandleLoginPage(writer http.ResponseWriter, request *http.Request) {
 	renderer.Render(document.Page{
 		Path:  "/login",
 		Title: "Login",
 	}, View(), writer, request)
+}
+
+func HandleAuthentication(writer http.ResponseWriter, request *http.Request) {
+
 }

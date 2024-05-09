@@ -5,6 +5,7 @@ import (
 	"base/internal/files"
 	"base/internal/home"
 	"base/internal/login"
+	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"
 )
@@ -14,16 +15,17 @@ const (
 )
 
 func main() {
-	setupRouter()
-	err := http.ListenAndServe(port, nil)
+	err := http.ListenAndServe(port, setupRouter())
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func setupRouter() {
-	files.Router()
-	home.Router()
-	docs.Router()
-	login.Router()
+func setupRouter() chi.Router {
+	router := chi.NewRouter()
+	files.Router(router)
+	home.Router(router)
+	docs.Router(router)
+	login.Router(router)
+	return router
 }

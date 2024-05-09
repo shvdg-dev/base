@@ -1,9 +1,9 @@
 package docs
 
 import (
-	"net/http"
+	"github.com/go-chi/chi/v5"
 )
 
-func Router() {
-	http.HandleFunc("/docs", Handler)
+func Router(router chi.Router) {
+	router.Get("/docs", Handler)
 }

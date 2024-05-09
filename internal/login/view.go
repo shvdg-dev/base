@@ -10,11 +10,18 @@ import (
 func View() Node {
 	return Div(
 		Header(Text("Welcome")),
-		Div(Class("pt-4"), mailField()),
-		Div(Class("pt-2"), passwordField()),
-		Div(Class("pt-3"), loginButton()),
-		Div(Class("pt-4"), registerLink()),
-		Div(Class("pt-2"), resetLink()))
+		Div(Class("pt-4 flex flex-col space-y-3"),
+			loginForm(),
+			registerLink(),
+			resetLink()))
+}
+
+func loginForm() Node {
+	return FormEl(Attr("hx-post", "/login"),
+		Div(Class("flex flex-col space-y-2"),
+			mailField(),
+			passwordField(),
+			loginButton()))
 }
 
 func mailField() Node {
@@ -42,8 +49,7 @@ func passwordField() Node {
 }
 
 func loginButton() Node {
-	return Button(Class("btn btn-primary"), hx.PushURL("false"), hx.Target("#content"),
-		Text("Login"))
+	return Button(Class("btn btn-primary btn-md w-20"), Type("submit"), Text("Login"))
 }
 
 func registerLink() Node {
@@ -51,7 +57,7 @@ func registerLink() Node {
 		Div(Class("italic"),
 			Text("Not yet an account?"),
 			Text(" "),
-			Label(Text("Register"), Class("underline text-info")),
+			Label(Text("Register"), Class("underline text-info cursor-pointer")),
 			Text(".")))
 }
 
@@ -60,6 +66,6 @@ func resetLink() Node {
 		Div(Class("italic"),
 			Text("Forgot your password?"),
 			Text(" "),
-			Label(Text("Reset your password"), Class("underline text-info")),
+			Label(Text("Reset your password"), Class("underline text-info cursor-pointer")),
 			Text(".")))
 }

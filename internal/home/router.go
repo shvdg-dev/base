@@ -1,10 +1,10 @@
 package home
 
 import (
-	"net/http"
+	"github.com/go-chi/chi/v5"
 )
 
-func Router() {
-	http.HandleFunc("/", Handler)
-	http.HandleFunc("/home", Handler)
+func Router(router chi.Router) {
+	router.Get("/", Handler)
+	router.Get("/home", Handler)
 }

@@ -1,8 +1,7 @@
 package document
 
 import (
-	"base/internal/models"
-	"base/internal/views/document/topbar"
+	"base/internal/document/topbar"
 	. "github.com/maragudk/gomponents"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
@@ -18,7 +17,7 @@ import (
 //
 // Returns:
 //   - The generated HTML document as a Node.
-func Document(page models.Page, content Node) Node {
+func Document(page Page, content Node) Node {
 	return HTML5(HTML5Props{
 		Title:    page.Title,
 		Language: "en",
@@ -38,4 +37,18 @@ func Document(page models.Page, content Node) Node {
 								Slot(content)))))),
 		},
 	})
+}
+
+// Slot creates a container for dynamic content.
+// It is used when creating the document and for a snippet when swapping content with HTMX.
+// The included script offers the minimally required functionality for one snippet.
+//
+// Parameters:
+// - content: the content to be inserted into the container.
+//
+// Returns:
+// - The generated HTML document as a Node.
+func Slot(content Node) Node {
+	return Div(content,
+		Script(Src("/public/scripts/slot.js"), Defer()))
 }

@@ -1,15 +1,14 @@
 package login
 
 import (
-	"base/internal/handlers"
-	"base/internal/models"
-	"base/internal/views/login"
+	"base/internal/document"
+	"base/internal/renderer"
 	"net/http"
 )
 
 func Handler(writer http.ResponseWriter, request *http.Request) {
-	handlers.Render(models.Page{
+	renderer.Render(document.Page{
 		Path:  "/login",
 		Title: "Login",
-	}, login.Page(), writer, request)
+	}, View(), writer, request)
 }

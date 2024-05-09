@@ -1,7 +1,10 @@
 package main
 
 import (
-	"base/internal/routing"
+	"base/internal/docs"
+	"base/internal/files"
+	"base/internal/home"
+	"base/internal/login"
 	"log"
 	"net/http"
 )
@@ -11,10 +14,16 @@ const (
 )
 
 func main() {
-	routing.SetupRouter()
-	log.Printf("Starting the server on localhost:%s...\n", port)
+	setupRouter()
 	err := http.ListenAndServe(port, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func setupRouter() {
+	files.Router()
+	home.Router()
+	docs.Router()
+	login.Router()
 }

@@ -1,4 +1,4 @@
-package models
+package document
 
 type Page struct {
 	Path  string

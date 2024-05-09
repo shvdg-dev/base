@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./internal/views/**/**/**/**/**/**/*.go",
-    "./internal/views/**/**/**/**/**/*.go",
-    "./internal/views/**/**/**/**/*.go",
-    "./internal/views/**/**/**/*.go",
-    "./internal/views/**/**/*.go",
-    "./internal/views/**/*.go"
+    "./internal/**/**/**/**/**/**/*.go",
+    "./internal/**/**/**/**/**/*.go",
+    "./internal/**/**/**/**/*.go",
+    "./internal/**/**/**/*.go",
+    "./internal/**/**/*.go",
+    "./internal/**/*.go"
   ],
   theme: {
     extend: {

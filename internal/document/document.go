@@ -17,7 +17,7 @@ import (
 //
 // Returns:
 //   - The generated HTML document as a Node.
-func Document(page Page, content Node) Node {
+func Document(page *Page, content Node) Node {
 	return HTML5(HTML5Props{
 		Title:    page.Title,
 		Language: "en",

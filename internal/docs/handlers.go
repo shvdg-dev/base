@@ -7,8 +7,5 @@ import (
 )
 
 func handleDocsPage(writer http.ResponseWriter, request *http.Request) {
-	renderer.Render(document.Page{
-		Path:  "/docs",
-		Title: "Docs",
-	}, page(), writer, request)
+	renderer.Render(document.NewPage("/docs", document.WithTitle("Docs")), page(), writer, request)
 }

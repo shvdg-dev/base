@@ -7,8 +7,5 @@ import (
 )
 
 func handleHomePage(writer http.ResponseWriter, request *http.Request) {
-	renderer.Render(document.Page{
-		Path:  "/home",
-		Title: "Home",
-	}, page(), writer, request)
+	renderer.Render(document.NewPage("/home", document.WithTitle("Home")), page(), writer, request)
 }

@@ -17,7 +17,7 @@ func page() Node {
 }
 
 func loginForm() Node {
-	return FormEl(Attr("hx-post", "/login"),
+	return FormEl(hx.Post("/login"), hx.Target("#content"),
 		Div(Class("flex flex-col space-y-2"),
 			mailField(),
 			passwordField(),

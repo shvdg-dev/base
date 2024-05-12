@@ -8,7 +8,7 @@ import (
 )
 
 // Render renders a component in either the content slot or in a new document when no target is defined.
-func Render(page document.Page, content Node, writer http.ResponseWriter, request *http.Request) {
+func Render(page *document.Page, content Node, writer http.ResponseWriter, request *http.Request) {
 	target := hxhttp.GetTarget(request.Header)
 
 	var err error

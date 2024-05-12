@@ -33,7 +33,7 @@ func InsertUser(email, password string) {
 	}
 }
 
-func AuthenticateUser(email, password string) bool {
+func IsPasswordCorrect(email, password string) bool {
 	var foundPassword string
 	err := app.Connections.Database.QueryRow(selectUserPasswordQuery, email).Scan(&foundPassword)
 	if err != nil {

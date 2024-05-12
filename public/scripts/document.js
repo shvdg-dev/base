@@ -28,7 +28,7 @@ function updateMenu(request) {
         menuItem.classList.add("border-transparent");
 
         const menuItemIdWithoutPrefix = menuItem.id.replace(new RegExp(menuItemPrefix, 'g'), '');
-        const shouldHighlightItem = path !== null && path.startsWith(menuItemIdWithoutPrefix);
+        const shouldHighlightItem = path != null && path.startsWith(menuItemIdWithoutPrefix);
 
         if (shouldHighlightItem) {
             menuItem.classList.remove("border-transparent");

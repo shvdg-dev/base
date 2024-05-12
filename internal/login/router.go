@@ -5,6 +5,6 @@ import (
 )
 
 func Router(router chi.Router) {
-	router.Get("/login", HandleLoginPage)
-	router.Post("/login", HandleAuthentication)
+	router.Get("/login", handleLoginPage)
+	router.Post("/login", handleAuthentication)
 }

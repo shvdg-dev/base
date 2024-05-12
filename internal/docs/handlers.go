@@ -6,9 +6,9 @@ import (
 	"net/http"
 )
 
-func Handler(writer http.ResponseWriter, request *http.Request) {
+func handleDocsPage(writer http.ResponseWriter, request *http.Request) {
 	renderer.Render(document.Page{
 		Path:  "/docs",
 		Title: "Docs",
-	}, View(), writer, request)
+	}, page(), writer, request)
 }

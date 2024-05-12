@@ -6,9 +6,9 @@ import (
 	"net/http"
 )
 
-func Handler(writer http.ResponseWriter, request *http.Request) {
+func handleHomePage(writer http.ResponseWriter, request *http.Request) {
 	renderer.Render(document.Page{
 		Path:  "/home",
 		Title: "Home",
-	}, View(), writer, request)
+	}, page(), writer, request)
 }

@@ -3,19 +3,21 @@ package login
 import (
 	"base/internal/document"
 	"base/internal/renderer"
+	"base/internal/users"
 	"log"
 	"net/http"
 )
 
-func HandleLoginPage(writer http.ResponseWriter, request *http.Request) {
+func handleLoginPage(writer http.ResponseWriter, request *http.Request) {
 	renderer.Render(document.Page{
 		Path:  "/login",
 		Title: "Login",
-	}, View(), writer, request)
+	}, page(), writer, request)
 }
 
-func HandleAuthentication(writer http.ResponseWriter, request *http.Request) {
+func handleAuthentication(writer http.ResponseWriter, request *http.Request) {
 	email := request.FormValue("email")
 	password := request.FormValue("password")
-	log.Println(email, password)
+	success := users.AuthenticateUser(email, password)
+	log.Println(success)
 }

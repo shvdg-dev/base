@@ -7,7 +7,7 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-func View() Node {
+func page() Node {
 	return Div(
 		Header(Text("Welcome")),
 		Div(Class("pt-4 flex flex-col space-y-3"),

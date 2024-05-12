@@ -5,5 +5,5 @@ import (
 )
 
 func Router(router chi.Router) {
-	router.Get("/docs", Handler)
+	router.Get("/docs", handleDocsPage)
 }

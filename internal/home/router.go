@@ -5,6 +5,6 @@ import (
 )
 
 func Router(router chi.Router) {
-	router.Get("/", Handler)
-	router.Get("/home", Handler)
+	router.Get("/", handleHomePage)
+	router.Get("/home", handleHomePage)
 }

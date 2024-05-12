@@ -4,28 +4,49 @@ import (
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
+	"github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
 )
 
-func page() Node {
+type ViewOption func(*View)
+
+type View struct {
+	Errors []error
+}
+
+func WithErrors(e []error) ViewOption {
+	return func(p *View) {
+		p.Errors = e
+	}
+}
+
+func NewView(opts ...ViewOption) *View {
+	page := &View{}
+	for _, opt := range opts {
+		opt(page)
+	}
+	return page
+}
+
+func (v *View) page() Node {
 	return Div(
 		Header(Text("Welcome")),
 		Div(Class("pt-4 flex flex-col space-y-3"),
-			loginForm(),
-			registerLink(),
-			resetLink()))
+			v.loginForm(),
+			v.registerLink(),
+			v.resetLink()))
 }
 
-func loginForm() Node {
+func (v *View) loginForm() Node {
 	return FormEl(hx.Post("/login"), hx.Target("#content"),
 		Div(Class("flex flex-col space-y-2"),
-			mailField(),
-			passwordField(),
-			loginButton()))
+			v.mailField(),
+			v.passwordField(),
+			v.loginButton()))
 }
 
-func mailField() Node {
-	return Label(Class("input input-bordered flex items-center gap-2 max-w-md"),
+func (v *View) mailField() Node {
+	return Label(components.Classes{"border-red-500": len(v.Errors) > 0, "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
 		icons.Mail(),
 		Input(Class("grow"),
 			Attr("type", "email"),
@@ -36,8 +57,8 @@ func mailField() Node {
 	)
 }
 
-func passwordField() Node {
-	return Label(Class("input input-bordered flex items-center gap-2 max-w-md"),
+func (v *View) passwordField() Node {
+	return Label(components.Classes{"border-red-500": len(v.Errors) > 0, "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
 		icons.Key(),
 		Input(Class("grow"),
 			Attr("type", "password"),
@@ -48,11 +69,11 @@ func passwordField() Node {
 	)
 }
 
-func loginButton() Node {
+func (v *View) loginButton() Node {
 	return Button(Class("btn btn-primary btn-md w-20"), Type("submit"), Text("Login"))
 }
 
-func registerLink() Node {
+func (v *View) registerLink() Node {
 	return A(hx.PushURL("true"), hx.Target("#content"),
 		Div(Class("italic"),
 			Text("Not yet an account?"),
@@ -61,7 +82,7 @@ func registerLink() Node {
 			Text(".")))
 }
 
-func resetLink() Node {
+func (v *View) resetLink() Node {
 	return A(hx.PushURL("true"), hx.Target("#content"),
 		Div(Class("italic"),
 			Text("Forgot your password?"),

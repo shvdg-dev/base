@@ -1,7 +1,7 @@
 package login
 
 import (
-	"base/internal/document"
+	doc "base/internal/document"
 	"base/internal/renderer"
 	"base/internal/users"
 	"errors"
@@ -9,7 +9,8 @@ import (
 )
 
 func handleLoginPage(writer http.ResponseWriter, request *http.Request) {
-	renderer.Render(document.NewPage("/login", document.WithTitle("Login")), NewView().page(), writer, request)
+	info := doc.NewInfo(doc.WithPath("/login"), doc.WithTitle("Login"))
+	renderer.Render(info, NewLoginPage(info).CreateLoginPage(), writer, request)
 }
 
 func handleAuthentication(writer http.ResponseWriter, request *http.Request) {
@@ -19,9 +20,7 @@ func handleAuthentication(writer http.ResponseWriter, request *http.Request) {
 	if isCorrectPassword {
 		http.Redirect(writer, request, "/home", 303)
 	} else {
-		errs := []error{errors.New("invalid email or password")}
-		page := document.NewPage("/login", document.WithTitle("Login"), document.WithErrors(errs))
-		view := NewView(WithErrors(errs))
-		renderer.Render(page, view.page(), writer, request)
+		info := doc.NewInfo(doc.WithErrors([]error{errors.New("invalid email or password")}))
+		renderer.Render(info, NewLoginPage(info).CreateLoginPage(), writer, request)
 	}
 }

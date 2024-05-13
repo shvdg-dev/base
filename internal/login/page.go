@@ -1,6 +1,7 @@
 package login
 
 import (
+	doc "base/internal/document"
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
@@ -8,45 +9,33 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-type ViewOption func(*View)
-
-type View struct {
-	Errors []error
+type Page struct {
+	info *doc.Info
 }
 
-func WithErrors(e []error) ViewOption {
-	return func(p *View) {
-		p.Errors = e
-	}
+func NewLoginPage(info *doc.Info) *Page {
+	return &Page{info: info}
 }
 
-func NewView(opts ...ViewOption) *View {
-	page := &View{}
-	for _, opt := range opts {
-		opt(page)
-	}
-	return page
-}
-
-func (v *View) page() Node {
+func (p *Page) CreateLoginPage() Node {
 	return Div(
 		Header(Text("Welcome")),
 		Div(Class("pt-4 flex flex-col space-y-3"),
-			v.loginForm(),
-			v.registerLink(),
-			v.resetLink()))
+			p.loginForm(),
+			p.registerLink(),
+			p.resetLink()))
 }
 
-func (v *View) loginForm() Node {
+func (p *Page) loginForm() Node {
 	return FormEl(hx.Post("/login"), hx.Target("#content"),
 		Div(Class("flex flex-col space-y-2"),
-			v.mailField(),
-			v.passwordField(),
-			v.loginButton()))
+			p.mailField(),
+			p.passwordField(),
+			p.loginButton()))
 }
 
-func (v *View) mailField() Node {
-	return Label(components.Classes{"border-red-500": len(v.Errors) > 0, "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
+func (p *Page) mailField() Node {
+	return Label(components.Classes{"border-red-500": p.info.HasErrors(), "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
 		icons.Mail(),
 		Input(Class("grow"),
 			Attr("type", "email"),
@@ -57,8 +46,8 @@ func (v *View) mailField() Node {
 	)
 }
 
-func (v *View) passwordField() Node {
-	return Label(components.Classes{"border-red-500": len(v.Errors) > 0, "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
+func (p *Page) passwordField() Node {
+	return Label(components.Classes{"border-red-500": p.info.HasErrors(), "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
 		icons.Key(),
 		Input(Class("grow"),
 			Attr("type", "password"),
@@ -69,11 +58,11 @@ func (v *View) passwordField() Node {
 	)
 }
 
-func (v *View) loginButton() Node {
+func (p *Page) loginButton() Node {
 	return Button(Class("btn btn-primary btn-md w-20"), Type("submit"), Text("Login"))
 }
 
-func (v *View) registerLink() Node {
+func (p *Page) registerLink() Node {
 	return A(hx.PushURL("true"), hx.Target("#content"),
 		Div(Class("italic"),
 			Text("Not yet an account?"),
@@ -82,7 +71,7 @@ func (v *View) registerLink() Node {
 			Text(".")))
 }
 
-func (v *View) resetLink() Node {
+func (p *Page) resetLink() Node {
 	return A(hx.PushURL("true"), hx.Target("#content"),
 		Div(Class("italic"),
 			Text("Forgot your password?"),

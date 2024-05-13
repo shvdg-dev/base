@@ -22,6 +22,7 @@ func (p *Page) CreateLoginPage() Node {
 		Header(Text("Welcome")),
 		Div(Class("pt-4 flex flex-col space-y-3"),
 			p.loginForm(),
+			p.authenticationFail(),
 			p.registerLink(),
 			p.resetLink()))
 }
@@ -56,6 +57,14 @@ func (p *Page) passwordField() Node {
 			Placeholder("Password"),
 		),
 	)
+}
+
+func (p *Page) authenticationFail() Node {
+	var errors []Node
+	for _, err := range p.info.Errors {
+		errors = append(errors, Div(Role("alert"), Class("alert alert-error w-60"), Span(Text(err.Error()))))
+	}
+	return Group(errors)
 }
 
 func (p *Page) loginButton() Node {

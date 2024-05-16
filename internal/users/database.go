@@ -2,6 +2,7 @@ package users
 
 import (
 	"base/pkg/environment"
+	"base/pkg/utils"
 	_ "github.com/lib/pq"
 
 	"base/internal/app"
@@ -29,19 +30,20 @@ func insertAdmin() {
 }
 
 // InsertUser inserts a user with the provided email and password.
-func InsertUser(email, password string) {
-	_, err := app.Connections.Database.Exec(insertUserQuery, email, password, "dummy")
+func InsertUser(email, plainPassword string) {
+	hashedPassword, _ := utils.HashPassword(plainPassword)
+	_, err := app.Connections.Database.Exec(insertUserQuery, email, hashedPassword)
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
 // IsPasswordCorrect verifies whether the password is set for the user with the email.
-func IsPasswordCorrect(email, password string) bool {
-	var foundPassword string
-	err := app.Connections.Database.QueryRow(selectUserPasswordQuery, email).Scan(&foundPassword)
+func IsPasswordCorrect(email, plainPassword string) bool {
+	var foundHashedPassword string
+	err := app.Connections.Database.QueryRow(selectUserPasswordQuery, email).Scan(&foundHashedPassword)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return foundPassword == password
+	return utils.ArePasswordsEqual(plainPassword, foundHashedPassword)
 }

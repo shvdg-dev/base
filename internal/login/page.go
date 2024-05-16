@@ -61,8 +61,8 @@ func (p *Page) passwordField() Node {
 
 func (p *Page) authenticationFail() Node {
 	var errors []Node
-	for _, err := range p.info.Errors {
-		errors = append(errors, Div(Role("alert"), Class("alert alert-error w-60"), Span(Text(err.Error()))))
+	for _, errMessage := range p.info.Errors {
+		errors = append(errors, Div(Role("alert"), Class("alert alert-error w-60"), Span(Text(errMessage))))
 	}
 	return Group(errors)
 }

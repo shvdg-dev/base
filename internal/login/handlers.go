@@ -4,7 +4,6 @@ import (
 	doc "base/internal/document"
 	"base/internal/renderer"
 	"base/internal/users"
-	"errors"
 	"net/http"
 )
 
@@ -20,7 +19,7 @@ func handleAuthentication(writer http.ResponseWriter, request *http.Request) {
 	if isCorrectPassword {
 		http.Redirect(writer, request, "/home", 303)
 	} else {
-		info := doc.NewInfo(doc.WithErrors([]error{errors.New("invalid email or password")}))
+		info := doc.NewInfo(doc.WithErrors([]string{"Invalid email or password"}))
 		renderer.Render(info, NewLoginPage(info).CreateLoginPage(), writer, request)
 	}
 }

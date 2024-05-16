@@ -5,7 +5,7 @@ type InfoOption func(*Info)
 type Info struct {
 	Path   string
 	Title  string
-	Errors []error
+	Errors []string // List of error messages
 }
 
 func WithPath(p string) InfoOption {
@@ -15,25 +15,25 @@ func WithPath(p string) InfoOption {
 }
 
 func WithTitle(t string) InfoOption {
-	return func(p *Info) {
-		p.Title = t
+	return func(i *Info) {
+		i.Title = t
 	}
 }
 
-func WithErrors(e []error) InfoOption {
-	return func(p *Info) {
-		p.Errors = e
+func WithErrors(e []string) InfoOption {
+	return func(i *Info) {
+		i.Errors = e
 	}
 }
 
 func NewInfo(opts ...InfoOption) *Info {
-	page := &Info{}
+	info := &Info{}
 	for _, opt := range opts {
-		opt(page)
+		opt(info)
 	}
-	return page
+	return info
 }
 
-func (p *Info) HasErrors() bool {
-	return len(p.Errors) > 0
+func (i *Info) HasErrors() bool {
+	return len(i.Errors) > 0
 }

@@ -16,7 +16,7 @@ func init() {
 
 // createUsersTable creates the User table.
 func createUsersTable() {
-	_, err := app.Connections.Database.Exec(createUsersTableQuery)
+	_, err := app.Database.Exec(createUsersTableQuery)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -32,7 +32,7 @@ func insertAdmin() {
 // InsertUser inserts a user with the provided email and password.
 func InsertUser(email, plainPassword string) {
 	hashedPassword, _ := utils.HashPassword(plainPassword)
-	_, err := app.Connections.Database.Exec(insertUserQuery, email, hashedPassword)
+	_, err := app.Database.Exec(insertUserQuery, email, hashedPassword)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -41,7 +41,7 @@ func InsertUser(email, plainPassword string) {
 // IsPasswordCorrect verifies whether the password is set for the user with the email.
 func IsPasswordCorrect(email, plainPassword string) bool {
 	var foundHashedPassword string
-	err := app.Connections.Database.QueryRow(selectUserPasswordQuery, email).Scan(&foundHashedPassword)
+	err := app.Database.QueryRow(selectUserPasswordQuery, email).Scan(&foundHashedPassword)
 	if err != nil {
 		log.Fatal(err)
 	}

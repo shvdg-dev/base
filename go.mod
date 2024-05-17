@@ -12,6 +12,13 @@ require (
 	github.com/maragudk/gomponents-htmx v0.5.0
 )
 
-require github.com/lib/pq v1.10.9
+require (
+	github.com/BurntSushi/toml v1.3.2
+	github.com/lib/pq v1.10.9
+	github.com/nicksnyder/go-i18n/v2 v2.4.0
+)
 
-require golang.org/x/crypto v0.23.0 // indirect
+require (
+	golang.org/x/crypto v0.23.0
+	golang.org/x/text v0.15.0
+)

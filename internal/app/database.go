@@ -7,12 +7,10 @@ import (
 	"log"
 )
 
-type connections struct {
-	Database *sql.DB
-}
+var Database *sql.DB
 
-func newConnections() *connections {
-	return &connections{Database: connectDatabase()}
+func init() {
+	Database = connectDatabase()
 }
 
 func connectDatabase() *sql.DB {

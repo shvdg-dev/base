@@ -6,8 +6,6 @@ import (
 	"base/internal/files"
 	"base/internal/home"
 	"base/internal/login"
-	"base/pkg/database"
-	"base/pkg/environment"
 	"base/pkg/i18n"
 	"base/pkg/logger"
 	"github.com/go-chi/chi/v5"
@@ -15,24 +13,14 @@ import (
 	"net/http"
 )
 
-const (
-	port               = "127.0.0.1:3000"
-	databaseUrl        = "DATABASE_URL"
-	englishTranslation = "resources/translations/en.toml"
-)
-
 func main() {
 	context := ctx.NewContext(
 		initializeDatabase(),
 		initializeLogger(),
 		initializeTranslator())
+	populateDatabase(context)
 	router := initializeRouter(context)
 	startServer(router)
-}
-
-func initializeDatabase() *database.Connection {
-	URL := environment.GetValueAsString(databaseUrl)
-	return database.NewConnection(URL)
 }
 
 func initializeLogger() *logger.Logger {

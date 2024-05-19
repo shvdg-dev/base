@@ -13,8 +13,9 @@ func (l *Login) HandleLoginPage(writer http.ResponseWriter, request *http.Reques
 func (l *Login) HandleAuthentication(writer http.ResponseWriter, request *http.Request) {
 	email := request.FormValue("email")
 	password := request.FormValue("password")
-	isCorrectPassword := l.context.UserService.IsPasswordCorrect(email, password)
+	isCorrectPassword := l.context.Users.IsPasswordCorrect(email, password)
 	if isCorrectPassword {
+		//TODO Update session with authentication
 		http.Redirect(writer, request, "/home", 303)
 	} else {
 		info := doc.NewInfo(request, doc.WithErrors([]string{"Invalid email or password"}))

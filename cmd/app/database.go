@@ -11,13 +11,14 @@ func initDatabase() *database.Connection {
 	return database.NewConnection(URL)
 }
 
-func populateDatabase(context *ctx.Context) {
-	context.UserService.CreateUsersTable()
+func prepareDatabase(context *ctx.Context) {
+	context.Users.CreateUsersTable()
+	context.Sessions.CreateSessionsTable()
 	insertAdmin(context)
 }
 
 func insertAdmin(context *ctx.Context) {
 	email := environment.GetValueAsString(adminInitialEmailKey)
 	password := environment.GetValueAsString(adminInitialPasswordKey)
-	context.UserService.InsertUser(email, password)
+	context.Users.InsertUser(email, password)
 }

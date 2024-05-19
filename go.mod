@@ -19,6 +19,9 @@ require (
 )
 
 require (
+	github.com/alexedwards/scs/postgresstore v0.0.0-20240316134038-7e11d57e8885
 	golang.org/x/crypto v0.23.0
 	golang.org/x/text v0.15.0
 )
+
+require github.com/alexedwards/scs/v2 v2.8.0

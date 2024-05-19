@@ -15,7 +15,7 @@ type Localizer struct {
 func NewLocalizer() *Localizer {
 	bundle := i18n.NewBundle(language.English)
 	bundle.RegisterUnmarshalFunc("toml", toml.Unmarshal)
-	localizer := i18n.NewLocalizer(bundle, English)
+	localizer := i18n.NewLocalizer(bundle, "en")
 	return &Localizer{bundle: bundle, localizer: localizer}
 }
 

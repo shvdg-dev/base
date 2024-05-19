@@ -2,6 +2,7 @@ package context
 
 import (
 	"base/internal/renderer"
+	"base/internal/sessions"
 	"base/internal/users"
 	"base/pkg/database"
 	"base/pkg/i18n"
@@ -13,16 +14,16 @@ type Context struct {
 	Logger    *logger.Logger
 	Localizer *i18n.Localizer
 	Renderer  *renderer.Renderer
-
-	//Services
-	UserService *users.Service
+	Sessions  *sessions.Service
+	Users     *users.Service
 }
 
-func NewContext(database *database.Connection, logger *logger.Logger, localizer *i18n.Localizer, renderer *renderer.Renderer) *Context {
+func NewContext(database *database.Connection, logger *logger.Logger, localizer *i18n.Localizer) *Context {
 	return &Context{
-		Database:    database,
-		Logger:      logger,
-		Localizer:   localizer,
-		Renderer:    renderer,
-		UserService: users.NewService(database)}
+		Database:  database,
+		Logger:    logger,
+		Localizer: localizer,
+		Renderer:  renderer.NewRenderer(localizer),
+		Sessions:  sessions.NewService(database),
+		Users:     users.NewService(database)}
 }

@@ -6,7 +6,7 @@ import (
 	"base/internal/files"
 	"base/internal/home"
 	"base/internal/login"
-	rend "base/internal/renderer"
+	"base/internal/middleware"
 	"base/pkg/i18n"
 	logr "base/pkg/logger"
 	"github.com/go-chi/chi/v5"
@@ -15,17 +15,9 @@ import (
 )
 
 func main() {
-	database := initDatabase()
-	logger := initLogger()
-	localizer := initLocalizer()
-	renderer := initRenderer(localizer)
-	context := ctx.NewContext(
-		database,
-		logger,
-		localizer,
-		renderer)
+	context := ctx.NewContext(initDatabase(), initLogger(), initLocalizer())
 	router := initRouter(context)
-	populateDatabase(context)
+	prepareDatabase(context)
 	startServer(router)
 }
 
@@ -39,12 +31,10 @@ func initLocalizer() *i18n.Localizer {
 	return trans
 }
 
-func initRenderer(localizer *i18n.Localizer) *rend.Renderer {
-	return rend.NewRenderer(localizer)
-}
-
 func initRouter(context *ctx.Context) chi.Router {
 	router := chi.NewRouter()
+	router.Use(context.Sessions.Manager.LoadAndSave)
+	router.Use(middleware.Authentication)
 	files.SetupRouter(router)
 	home.NewHome(context).SetupRouter(router)
 	docs.NewDocs(context).SetupRouter(router)

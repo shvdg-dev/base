@@ -1,2 +1,5 @@
 [Home]
-other = "home"
+other = "Home"
+
+[HomeIntroduction]
+other = "Welcome on the home page!"

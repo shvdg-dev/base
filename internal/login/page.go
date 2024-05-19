@@ -1,6 +1,7 @@
 package login
 
 import (
+	ctx "base/internal/context"
 	doc "base/internal/document"
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
@@ -10,11 +11,12 @@ import (
 )
 
 type Page struct {
-	info *doc.Info
+	info    *doc.Info
+	context *ctx.Context
 }
 
 func (l *Login) NewPage(info *doc.Info) *Page {
-	return &Page{info: info}
+	return &Page{info: info, context: l.context}
 }
 
 func (p *Page) CreateLoginPage() Node {

@@ -6,7 +6,7 @@ import (
 	"base/pkg/environment"
 )
 
-func initializeDatabase() *database.Connection {
+func initDatabase() *database.Connection {
 	URL := environment.GetValueAsString(databaseUrl)
 	return database.NewConnection(URL)
 }

@@ -1,6 +1,7 @@
 package topbar
 
 import (
+	"base/pkg/i18n"
 	"fmt"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
@@ -8,28 +9,35 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-type navbar struct {
-	currentPath string
-	pageLinks   []pageLink
+type Navbar struct {
+	Localizer   *i18n.Localizer
+	CurrentPath string
+	PageLinks   []PageLink
 }
 
-type pageLink struct {
+func NewNavBar(localizer *i18n.Localizer, currentPath string) *Navbar {
+	navbar := &Navbar{Localizer: localizer, CurrentPath: currentPath}
+	navbar.PageLinks = []PageLink{
+		NewPageLink("/home", navbar.Localizer.Localize("Home")),
+		NewPageLink("/docs", navbar.Localizer.Localize("Docs"))}
+	return navbar
+}
+
+type PageLink struct {
 	Path     string
 	Name     string
 	IsActive bool
 }
 
-func NavBar(currentPath string) Node {
-	navbar := navbar{
-		currentPath: currentPath,
-		pageLinks: []pageLink{
-			{Path: "/home", Name: "Home"},
-			{Path: "/docs", Name: "Docs"},
-		}}
-	return navbar.navBar()
+func NewPageLink(path, name string) PageLink {
+	return PageLink{
+		Path:     path,
+		Name:     name,
+		IsActive: false,
+	}
 }
 
-func (n *navbar) navBar() Node {
+func (n *Navbar) CreateNavbar() Node {
 	n.setActiveLink()
 	return Div(Class("h-15 navbar bg-base-200"), hx.PushURL("true"), hx.Target("#content"),
 		n.navBarStart(),
@@ -38,15 +46,15 @@ func (n *navbar) navBar() Node {
 	)
 }
 
-func (n *navbar) setActiveLink() {
-	for index, link := range n.pageLinks {
-		if link.Path == n.currentPath {
-			n.pageLinks[index].IsActive = true
+func (n *Navbar) setActiveLink() {
+	for index, link := range n.PageLinks {
+		if link.Path == n.CurrentPath {
+			n.PageLinks[index].IsActive = true
 		}
 	}
 }
 
-func (n *navbar) navBarStart() Node {
+func (n *Navbar) navBarStart() Node {
 	return Div(Class("navbar-start pl-12 cursor-pointer"),
 		A(hx.Get("/home"), Class("text-xl flex space-x-2"),
 			Div(Class("text-base-content"), Text("BACK")),
@@ -55,23 +63,23 @@ func (n *navbar) navBarStart() Node {
 	)
 }
 
-func (n *navbar) navBarCenter() Node {
+func (n *Navbar) navBarCenter() Node {
 	return Div(Class("navbar-center"),
 		Ul(Class("menu menu-horizontal px-1"),
-			Group(Map(n.pageLinks, func(pageLink pageLink) Node {
-				return navLink(pageLink)
+			Group(Map(n.PageLinks, func(pageLink PageLink) Node {
+				return pageLink.CreatePageLink()
 			}))))
 }
 
-func (n *navbar) navBarEnd() Node {
+func (n *Navbar) navBarEnd() Node {
 	return Div(Class("navbar-end pr-12"), Options())
 }
 
-func navLink(pageLink pageLink) Node {
+func (p *PageLink) CreatePageLink() Node {
 	return Li(
-		A(ID(fmt.Sprintf("menu-item-%s", pageLink.Path)),
-			hx.Get(pageLink.Path),
-			Text(pageLink.Name),
-			Classes{"border-b-4": true, "border-transparent": !pageLink.IsActive, "border-primary": pageLink.IsActive}),
+		A(ID(fmt.Sprintf("menu-item-%s", p.Path)),
+			hx.Get(p.Path),
+			Text(p.Name),
+			Classes{"border-b-4": true, "border-transparent": !p.IsActive, "border-primary": p.IsActive}),
 	)
 }

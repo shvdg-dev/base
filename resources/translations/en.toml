@@ -1,5 +1,11 @@
 [Home]
 other = "Home"
 
+[Docs]
+other = "Docs"
+
 [HomeIntroduction]
 other = "Welcome on the home page!"
+
+[DocsIntroduction]
+other = "Welcome to the docs! It is empty ofcourse!"

@@ -31,7 +31,7 @@ func (p *Document) CreateDocument(info *Info, content Node) Node {
 		},
 		Body: []Node{
 			Body(
-				Div(Class("h-[80vh]"), topbar.NavBar(info.Path),
+				Div(Class("h-[80vh]"), topbar.NewNavBar(p.Localizer, info.Path).CreateNavbar(),
 					Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
 						Div(Class("h-full rounded-lg bg-base-200"),
 							Main(Class("h-full p-5"), ID("content"),

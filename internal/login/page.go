@@ -39,7 +39,7 @@ func (p *Page) loginForm() Node {
 
 func (p *Page) mailField() Node {
 	return Label(components.Classes{"border-red-500": p.Info.HasErrors(), "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
-		icons.Mail(),
+		icons.Mail(components.Classes{"text-red-500": p.Info.HasErrors(), "stroke-current": true}),
 		Input(Class("grow"),
 			Attr("type", "email"),
 			Attr("name", "email"),
@@ -51,7 +51,7 @@ func (p *Page) mailField() Node {
 
 func (p *Page) passwordField() Node {
 	return Label(components.Classes{"border-red-500": p.Info.HasErrors(), "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
-		icons.Key(),
+		icons.Key(components.Classes{"text-red-500": p.Info.HasErrors(), "stroke-current": true}),
 		Input(Class("grow"),
 			Attr("type", "password"),
 			Attr("name", "password"),
@@ -78,7 +78,7 @@ func (p *Page) registerLink() Node {
 		Div(Class("italic"),
 			Text("Not yet an account?"),
 			Text(" "),
-			Label(Text("Register"), Class("link link-Info cursor-pointer")),
+			Label(Text("Register"), Class("link link-info cursor-pointer")),
 			Text(".")))
 }
 
@@ -87,6 +87,6 @@ func (p *Page) resetLink() Node {
 		Div(Class("italic"),
 			Text("Forgot your password?"),
 			Text(" "),
-			Label(Text("Reset your password"), Class("link link-Info cursor-pointer")),
+			Label(Text("Reset your password"), Class("link link-info cursor-pointer")),
 			Text(".")))
 }

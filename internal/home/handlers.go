@@ -1,14 +1,13 @@
 package home
 
 import (
-	"base/internal/document"
+	doc "base/internal/document"
 	"base/internal/renderer"
 	"net/http"
 )
 
-func Handler(writer http.ResponseWriter, request *http.Request) {
-	renderer.Render(document.Page{
-		Path:  "/home",
-		Title: "Home",
-	}, View(), writer, request)
+func (h *Home) HandleHomePage(writer http.ResponseWriter, request *http.Request) {
+	renderer.Render(
+		doc.NewInfo(doc.WithPath("/home"), doc.WithTitle("Home")), h.Page(),
+		writer, request)
 }

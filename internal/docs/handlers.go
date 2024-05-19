@@ -1,14 +1,11 @@
 package docs
 
 import (
-	"base/internal/document"
+	doc "base/internal/document"
 	"base/internal/renderer"
 	"net/http"
 )
 
-func Handler(writer http.ResponseWriter, request *http.Request) {
-	renderer.Render(document.Page{
-		Path:  "/docs",
-		Title: "Docs",
-	}, View(), writer, request)
+func (d *Docs) handleDocsPage(writer http.ResponseWriter, request *http.Request) {
+	renderer.Render(doc.NewInfo(doc.WithPath("/docs"), doc.WithTitle("Docs")), d.Page(), writer, request)
 }

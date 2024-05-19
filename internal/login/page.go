@@ -11,12 +11,12 @@ import (
 )
 
 type Page struct {
-	info    *doc.Info
-	context *ctx.Context
+	Info    *doc.Info
+	Context *ctx.Context
 }
 
 func (l *Login) NewPage(info *doc.Info) *Page {
-	return &Page{info: info, context: l.context}
+	return &Page{Info: info, Context: l.context}
 }
 
 func (p *Page) CreateLoginPage() Node {
@@ -38,7 +38,7 @@ func (p *Page) loginForm() Node {
 }
 
 func (p *Page) mailField() Node {
-	return Label(components.Classes{"border-red-500": p.info.HasErrors(), "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
+	return Label(components.Classes{"border-red-500": p.Info.HasErrors(), "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
 		icons.Mail(),
 		Input(Class("grow"),
 			Attr("type", "email"),
@@ -50,7 +50,7 @@ func (p *Page) mailField() Node {
 }
 
 func (p *Page) passwordField() Node {
-	return Label(components.Classes{"border-red-500": p.info.HasErrors(), "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
+	return Label(components.Classes{"border-red-500": p.Info.HasErrors(), "input": true, "input-bordered": true, "flex": true, "items-center": true, "gap-2": true, "max-w-md": true},
 		icons.Key(),
 		Input(Class("grow"),
 			Attr("type", "password"),
@@ -63,7 +63,7 @@ func (p *Page) passwordField() Node {
 
 func (p *Page) authenticationFail() Node {
 	var errors []Node
-	for _, errMessage := range p.info.Errors {
+	for _, errMessage := range p.Info.Errors {
 		errors = append(errors, Div(Role("alert"), Class("alert alert-error w-60"), Span(Text(errMessage))))
 	}
 	return Group(errors)
@@ -78,7 +78,7 @@ func (p *Page) registerLink() Node {
 		Div(Class("italic"),
 			Text("Not yet an account?"),
 			Text(" "),
-			Label(Text("Register"), Class("link link-info cursor-pointer")),
+			Label(Text("Register"), Class("link link-Info cursor-pointer")),
 			Text(".")))
 }
 
@@ -87,6 +87,6 @@ func (p *Page) resetLink() Node {
 		Div(Class("italic"),
 			Text("Forgot your password?"),
 			Text(" "),
-			Label(Text("Reset your password"), Class("link link-info cursor-pointer")),
+			Label(Text("Reset your password"), Class("link link-Info cursor-pointer")),
 			Text(".")))
 }

@@ -5,6 +5,8 @@ import (
 	"net/http"
 )
 
-func (d *Docs) handleDocsPage(writer http.ResponseWriter, request *http.Request) {
-	d.context.Renderer.Render(doc.NewInfo(doc.WithPath("/docs"), doc.WithTitle("Docs")), d.Page(), writer, request)
+func (d *Docs) HandleDocsPage(writer http.ResponseWriter, request *http.Request) {
+	d.context.Renderer.Render(
+		doc.NewInfo(request, doc.WithTitle("Docs")), d.Page(),
+		writer, request)
 }

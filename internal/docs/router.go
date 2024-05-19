@@ -14,5 +14,5 @@ func NewDocs(context *ctx.Context) *Docs {
 }
 
 func (d *Docs) SetupRouter(router chi.Router) {
-	router.Get("/docs", d.handleDocsPage)
+	router.Get("/docs", d.HandleDocsPage)
 }

@@ -6,7 +6,6 @@ import (
 	"base/internal/files"
 	"base/internal/home"
 	"base/internal/login"
-	"base/internal/middleware"
 	"base/pkg/i18n"
 	logr "base/pkg/logger"
 	"github.com/go-chi/chi/v5"
@@ -32,9 +31,11 @@ func initLocalizer() *i18n.Localizer {
 }
 
 func initRouter(context *ctx.Context) chi.Router {
+	//TODO: Use middleware
+	//middleware := midware.NewMiddleware(context)
 	router := chi.NewRouter()
-	router.Use(context.Sessions.Manager.LoadAndSave)
-	router.Use(middleware.Authentication)
+	//TODO: Use middleware
+	//router.Use(context.Sessions.Manager.LoadAndSave, middleware.Authentication)
 	files.SetupRouter(router)
 	home.NewHome(context).SetupRouter(router)
 	docs.NewDocs(context).SetupRouter(router)

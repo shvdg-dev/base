@@ -5,6 +5,7 @@ import (
 	"github.com/alexedwards/scs/postgresstore"
 	"github.com/alexedwards/scs/v2"
 	"log"
+	"net/http"
 )
 
 type Service struct {
@@ -27,4 +28,12 @@ func (s *Service) CreateSessionsTable() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func (s *Service) Store(key string, value interface{}, request *http.Request) {
+	s.Manager.Put(request.Context(), key, value)
+}
+
+func (s *Service) Get(key string, request *http.Request) interface{} {
+	return s.Manager.Get(request.Context(), key)
 }

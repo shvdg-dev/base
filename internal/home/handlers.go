@@ -6,8 +6,8 @@ import (
 	"net/http"
 )
 
-func handleHomePage(writer http.ResponseWriter, request *http.Request) {
+func (h *Home) HandleHomePage(writer http.ResponseWriter, request *http.Request) {
 	renderer.Render(
-		doc.NewInfo(doc.WithPath("/home"), doc.WithTitle("Home")), Page(),
+		doc.NewInfo(doc.WithPath("/home"), doc.WithTitle("Home")), h.Page(),
 		writer, request)
 }

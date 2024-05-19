@@ -13,7 +13,7 @@ type Page struct {
 	info *doc.Info
 }
 
-func NewLoginPage(info *doc.Info) *Page {
+func (l *Login) NewPage(info *doc.Info) *Page {
 	return &Page{info: info}
 }
 

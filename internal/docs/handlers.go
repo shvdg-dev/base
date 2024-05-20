@@ -8,6 +8,6 @@ import (
 
 func (d *Docs) HandleDocsPage(writer http.ResponseWriter, request *http.Request) {
 	rend.GetRenderer().Render(
-		doc.NewInfo(request, doc.WithTitle("Docs")), d.Page(),
+		doc.NewInfo(request, doc.WithTitle("Docs")), d.CreateDocsPage(),
 		writer, request)
 }

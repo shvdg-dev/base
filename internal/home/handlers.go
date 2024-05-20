@@ -8,6 +8,6 @@ import (
 
 func (h *Home) HandleHomePage(writer http.ResponseWriter, request *http.Request) {
 	rend.GetRenderer().Render(
-		doc.NewInfo(request, doc.WithTitle("Home")), h.Page(),
+		doc.NewInfo(request, doc.WithTitle("Home")), h.CreateHomePage(),
 		writer, request)
 }

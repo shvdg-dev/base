@@ -5,6 +5,6 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-func (h *Home) Page() Node {
+func (h *Home) CreateHomePage() Node {
 	return Div(Text(h.Context.Localizer.Localize("HomeIntroduction")))
 }

@@ -1,8 +1,8 @@
-package document
+package info
 
 import "net/http"
 
-type InfoOption func(*Info)
+type Option func(*Info)
 
 type Info struct {
 	Path   string
@@ -10,19 +10,19 @@ type Info struct {
 	Errors []string // List of error messages
 }
 
-func WithTitle(t string) InfoOption {
+func WithTitle(t string) Option {
 	return func(i *Info) {
 		i.Title = t
 	}
 }
 
-func WithErrors(e []string) InfoOption {
+func WithErrors(e []string) Option {
 	return func(i *Info) {
 		i.Errors = e
 	}
 }
 
-func NewInfo(request *http.Request, opts ...InfoOption) *Info {
+func NewInfo(request *http.Request, opts ...Option) *Info {
 	info := &Info{Path: request.URL.Path}
 	for _, opt := range opts {
 		opt(info)

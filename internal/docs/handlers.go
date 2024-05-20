@@ -1,7 +1,7 @@
 package docs
 
 import (
-	doc "base/internal/document"
+	doc "base/internal/document/info"
 	"net/http"
 )
 

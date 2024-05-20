@@ -37,3 +37,11 @@ func (s *Service) Store(key string, value interface{}, request *http.Request) {
 func (s *Service) Get(key string, request *http.Request) interface{} {
 	return s.Manager.Get(request.Context(), key)
 }
+
+func (s *Service) IsAuthenticated(request *http.Request) bool {
+	isAuthenticated, ok := s.Get("isAuthenticated", request).(bool)
+	if !ok {
+		return false
+	}
+	return isAuthenticated
+}

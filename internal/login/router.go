@@ -15,5 +15,6 @@ func NewLogin(context *ctx.Context) *Login {
 
 func (l *Login) SetupRouter(router chi.Router) {
 	router.Get("/login", l.HandleLoginPage)
-	router.Post("/login", l.HandleAuthentication)
+	router.Post("/login", l.HandleLoggingIn)
+	router.Get("/logout", l.HandleLoggingOut)
 }

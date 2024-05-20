@@ -2,7 +2,7 @@ package login
 
 import (
 	ctx "base/internal/context"
-	doc "base/internal/document"
+	doc "base/internal/document/info"
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"

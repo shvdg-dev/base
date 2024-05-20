@@ -1,7 +1,7 @@
 package login
 
 import (
-	doc "base/internal/document"
+	doc "base/internal/document/info"
 	"net/http"
 )
 
@@ -10,7 +10,7 @@ func (l *Login) HandleLoginPage(writer http.ResponseWriter, request *http.Reques
 	l.Context.Renderer.Render(info, l.NewPage(info).CreateLoginPage(), writer, request)
 }
 
-func (l *Login) HandleAuthentication(writer http.ResponseWriter, request *http.Request) {
+func (l *Login) HandleLoggingIn(writer http.ResponseWriter, request *http.Request) {
 	email := request.FormValue("email")
 	password := request.FormValue("password")
 	isCorrectPassword := l.Context.Users.IsPasswordCorrect(email, password)
@@ -21,4 +21,10 @@ func (l *Login) HandleAuthentication(writer http.ResponseWriter, request *http.R
 		info := doc.NewInfo(request, doc.WithErrors([]string{"Invalid email or password"}))
 		l.Context.Renderer.Render(info, l.NewPage(info).CreateLoginPage(), writer, request)
 	}
+}
+
+func (l *Login) HandleLoggingOut(writer http.ResponseWriter, request *http.Request) {
+	l.Context.Sessions.Store("isAuthenticated", false, request)
+	http.Redirect(writer, request, "/home", 303)
+	return
 }

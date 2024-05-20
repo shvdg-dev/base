@@ -2,7 +2,7 @@ package middleware
 
 import (
 	ctx "base/internal/context"
-	doc "base/internal/document"
+	doc "base/internal/document/info"
 	err "base/internal/error"
 	"net/http"
 	"strings"
@@ -18,8 +18,8 @@ func NewMiddleware(context *ctx.Context) *Middleware {
 
 func (m *Middleware) Authentication(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-		isAuthenticated, ok := (m.Context.Sessions.Get("isAuthenticated", request)).(bool)
-		if !IsResourceAccessible(request.URL.Path) && (!isAuthenticated || !ok) {
+		isAuthenticated := m.Context.Sessions.IsAuthenticated(request)
+		if !IsResourceAccessible(request.URL.Path) && (!isAuthenticated) {
 			writer.WriteHeader(http.StatusUnauthorized)
 			m.Context.Renderer.Render(
 				doc.NewInfo(request, doc.WithTitle("401 - Unauthorized, whoops!")),
@@ -34,10 +34,4 @@ func (m *Middleware) Authentication(next http.Handler) http.Handler {
 func IsResourceAccessible(path string) bool {
 	return strings.HasPrefix(path, "/public") ||
 		strings.HasPrefix(path, "/login")
-}
-
-func (m *Middleware) Authorization(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
-		next.ServeHTTP(writer, request)
-	})
 }

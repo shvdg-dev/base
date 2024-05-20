@@ -1,36 +1,41 @@
 package topbar
 
 import (
+	"base/internal/document/info"
+	"base/internal/sessions"
 	"base/pkg/i18n"
 	"fmt"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
+	"net/http"
 )
 
 type Navbar struct {
-	Localizer   *i18n.Localizer
-	CurrentPath string
-	PageLinks   []PageLink
+	Localizer *i18n.Localizer
+	Sessions  *sessions.Service
+	Info      *info.Info
+	request   *http.Request
+	NavItems  []NavItem
 }
 
-func NewNavBar(localizer *i18n.Localizer, currentPath string) *Navbar {
-	navbar := &Navbar{Localizer: localizer, CurrentPath: currentPath}
-	navbar.PageLinks = []PageLink{
-		NewPageLink("/home", navbar.Localizer.Localize("Home")),
-		NewPageLink("/docs", navbar.Localizer.Localize("Docs"))}
+func NewNavBar(localizer *i18n.Localizer, sessions *sessions.Service, info *info.Info, request *http.Request) *Navbar {
+	navbar := &Navbar{Localizer: localizer, Sessions: sessions, Info: info, request: request}
+	navbar.NavItems = []NavItem{
+		NewNavItem("/home", navbar.Localizer.Localize("Home")),
+		NewNavItem("/docs", navbar.Localizer.Localize("Docs"))}
 	return navbar
 }
 
-type PageLink struct {
+type NavItem struct {
 	Path     string
 	Name     string
 	IsActive bool
 }
 
-func NewPageLink(path, name string) PageLink {
-	return PageLink{
+func NewNavItem(path, name string) NavItem {
+	return NavItem{
 		Path:     path,
 		Name:     name,
 		IsActive: false,
@@ -47,9 +52,9 @@ func (n *Navbar) CreateNavbar() Node {
 }
 
 func (n *Navbar) setActiveLink() {
-	for index, link := range n.PageLinks {
-		if link.Path == n.CurrentPath {
-			n.PageLinks[index].IsActive = true
+	for index, link := range n.NavItems {
+		if link.Path == n.Info.Path {
+			n.NavItems[index].IsActive = true
 		}
 	}
 }
@@ -66,16 +71,16 @@ func (n *Navbar) navBarStart() Node {
 func (n *Navbar) navBarCenter() Node {
 	return Div(Class("navbar-center"),
 		Ul(Class("menu menu-horizontal px-1"),
-			Group(Map(n.PageLinks, func(pageLink PageLink) Node {
-				return pageLink.CreatePageLink()
+			Group(Map(n.NavItems, func(navItem NavItem) Node {
+				return navItem.CreateNavItem()
 			}))))
 }
 
 func (n *Navbar) navBarEnd() Node {
-	return Div(Class("navbar-end pr-12"), Options())
+	return Div(Class("navbar-end pr-12"), n.CreateOptions())
 }
 
-func (p *PageLink) CreatePageLink() Node {
+func (p *NavItem) CreateNavItem() Node {
 	return Li(
 		A(ID(fmt.Sprintf("menu-item-%s", p.Path)),
 			hx.Get(p.Path),

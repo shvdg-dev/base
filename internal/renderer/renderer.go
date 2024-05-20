@@ -40,8 +40,7 @@ func (r *Renderer) Render(info *info.Info, content Node, writer http.ResponseWri
 	if target != "" {
 		writer.Header().Set("H-Title", info.Title)
 		navBar := r.Document.NewNavBar(info, request)
-		parts := []Node{content, navBar.CreateNavBarCenter(), navBar.CreateNavBarEnd()}
-		err = r.Document.CreatePartial(parts...).Render(writer)
+		err = r.Document.CreatePartial(content, navBar.CreateMenuItems(), navBar.CreateInOutButton()).Render(writer)
 	} else {
 		err = r.Document.CreateDocument(info, content, request).Render(writer)
 	}

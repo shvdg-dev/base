@@ -3,7 +3,6 @@ package document
 import (
 	ctx "base/internal/context"
 	"base/internal/document/info"
-	"base/internal/document/topbar"
 	. "github.com/maragudk/gomponents"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
@@ -33,7 +32,7 @@ func (d *Document) CreateDocument(info *info.Info, content Node, request *http.R
 		},
 		Body: []Node{
 			Body(
-				Div(Class("h-[80vh]"), topbar.NewNavBar(d.Context, info, request).CreateNavbar(),
+				Div(Class("h-[80vh]"), d.NewNavBar(info, request).CreateNavbar(),
 					Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
 						Div(Class("h-full rounded-lg bg-base-200"),
 							Main(Class("h-full p-5"), ID("content"),
@@ -45,7 +44,6 @@ func (d *Document) CreateDocument(info *info.Info, content Node, request *http.R
 // CreatePartial creates a container for dynamic content.
 // It is used when creating the document and for a snippet when swapping content with HTMX.
 // The included script offers the minimally required functionality for one snippet.
-func (d *Document) CreatePartial(content Node) Node {
-	return Div(content,
-		Script(Src("/public/scripts/partial.js"), Defer()))
+func (d *Document) CreatePartial(content ...Node) Node {
+	return Div(Group(content), Script(Src("/public/scripts/partial.js"), Defer()))
 }

@@ -1,4 +1,4 @@
-package topbar
+package document
 
 import (
 	icons "github.com/eduardolat/gomponents-lucide"
@@ -14,10 +14,10 @@ func (n *Navbar) CreateOptions() Node {
 			TabIndex("0"),
 			Button(Class("btn btn-sm"), icons.User(), Text("Profile"), hx.Get("/profile")),
 			Button(Class("btn btn-sm"), icons.Cog(), Text("Settings"), hx.Get("/settings")),
-			n.LoginOrLogout()))
+			n.loginOrLogout()))
 }
 
-func (n *Navbar) LoginOrLogout() Node {
+func (n *Navbar) loginOrLogout() Node {
 	if n.Context.Sessions.IsAuthenticated(n.Request) {
 		return Button(Class("btn btn-sm"), icons.LogOut(), Text("Logout"), hx.Get("/logout"))
 	} else {

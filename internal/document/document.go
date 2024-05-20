@@ -1,10 +1,9 @@
 package document
 
 import (
+	ctx "base/internal/context"
 	"base/internal/document/info"
 	"base/internal/document/topbar"
-	"base/internal/sessions"
-	"base/pkg/i18n"
 	. "github.com/maragudk/gomponents"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
@@ -12,12 +11,11 @@ import (
 )
 
 type Document struct {
-	Localizer *i18n.Localizer
-	Sessions  *sessions.Service
+	Context *ctx.Context
 }
 
-func NewDocument(localizer *i18n.Localizer, sessions *sessions.Service) *Document {
-	return &Document{Localizer: localizer, Sessions: sessions}
+func NewDocument(context *ctx.Context) *Document {
+	return &Document{Context: context}
 }
 
 // CreateDocument creates an HTML document with the given title and content.
@@ -35,7 +33,7 @@ func (d *Document) CreateDocument(info *info.Info, content Node, request *http.R
 		},
 		Body: []Node{
 			Body(
-				Div(Class("h-[80vh]"), topbar.NewNavBar(d.Localizer, d.Sessions, info, request).CreateNavbar(),
+				Div(Class("h-[80vh]"), topbar.NewNavBar(d.Context, info, request).CreateNavbar(),
 					Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
 						Div(Class("h-full rounded-lg bg-base-200"),
 							Main(Class("h-full p-5"), ID("content"),

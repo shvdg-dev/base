@@ -2,12 +2,13 @@ package login
 
 import (
 	doc "base/internal/document/info"
+	rend "base/internal/renderer"
 	"net/http"
 )
 
 func (l *Login) HandleLoginPage(writer http.ResponseWriter, request *http.Request) {
 	info := doc.NewInfo(request, doc.WithTitle("Login"))
-	l.Context.Renderer.Render(info, l.NewPage(info).CreateLoginPage(), writer, request)
+	rend.GetRenderer().Render(info, l.NewPage(info).CreateLoginPage(), writer, request)
 }
 
 func (l *Login) HandleLoggingIn(writer http.ResponseWriter, request *http.Request) {
@@ -19,7 +20,7 @@ func (l *Login) HandleLoggingIn(writer http.ResponseWriter, request *http.Reques
 		http.Redirect(writer, request, "/home", 303)
 	} else {
 		info := doc.NewInfo(request, doc.WithErrors([]string{"Invalid email or password"}))
-		l.Context.Renderer.Render(info, l.NewPage(info).CreateLoginPage(), writer, request)
+		rend.GetRenderer().Render(info, l.NewPage(info).CreateLoginPage(), writer, request)
 	}
 }
 

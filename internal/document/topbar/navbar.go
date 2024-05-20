@@ -1,9 +1,8 @@
 package topbar
 
 import (
+	ctx "base/internal/context"
 	"base/internal/document/info"
-	"base/internal/sessions"
-	"base/pkg/i18n"
 	"fmt"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
@@ -13,18 +12,17 @@ import (
 )
 
 type Navbar struct {
-	Localizer *i18n.Localizer
-	Sessions  *sessions.Service
-	Info      *info.Info
-	request   *http.Request
-	NavItems  []NavItem
+	Context  *ctx.Context
+	Info     *info.Info
+	Request  *http.Request
+	NavItems []NavItem
 }
 
-func NewNavBar(localizer *i18n.Localizer, sessions *sessions.Service, info *info.Info, request *http.Request) *Navbar {
-	navbar := &Navbar{Localizer: localizer, Sessions: sessions, Info: info, request: request}
+func NewNavBar(context *ctx.Context, info *info.Info, request *http.Request) *Navbar {
+	navbar := &Navbar{Context: context, Info: info, Request: request}
 	navbar.NavItems = []NavItem{
-		NewNavItem("/home", navbar.Localizer.Localize("Home")),
-		NewNavItem("/docs", navbar.Localizer.Localize("Docs"))}
+		NewNavItem("/home", navbar.Context.Localizer.Localize("Home")),
+		NewNavItem("/docs", navbar.Context.Localizer.Localize("Docs"))}
 	return navbar
 }
 

@@ -18,7 +18,7 @@ func (n *Navbar) CreateOptions() Node {
 }
 
 func (n *Navbar) LoginOrLogout() Node {
-	if n.Sessions.IsAuthenticated(n.request) {
+	if n.Context.Sessions.IsAuthenticated(n.Request) {
 		return Button(Class("btn btn-sm"), icons.LogOut(), Text("Logout"), hx.Get("/logout"))
 	} else {
 		return Button(Class("btn btn-sm"), icons.LogIn(), Text("Login"), hx.Get("/login"))

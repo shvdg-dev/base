@@ -4,6 +4,7 @@ import (
 	ctx "base/internal/context"
 	doc "base/internal/document/info"
 	err "base/internal/error"
+	rend "base/internal/renderer"
 	"net/http"
 	"strings"
 )
@@ -21,7 +22,7 @@ func (m *Middleware) Authentication(next http.Handler) http.Handler {
 		isAuthenticated := m.Context.Sessions.IsAuthenticated(request)
 		if !IsResourceAccessible(request.URL.Path) && (!isAuthenticated) {
 			writer.WriteHeader(http.StatusUnauthorized)
-			m.Context.Renderer.Render(
+			rend.GetRenderer().Render(
 				doc.NewInfo(request, doc.WithTitle("401 - Unauthorized, whoops!")),
 				err.NewPage(m.Context).CreateAuthenticationRequiredPage(),
 				writer, request)

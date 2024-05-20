@@ -7,22 +7,19 @@ import (
 	"base/internal/home"
 	"base/internal/login"
 	midware "base/internal/middleware"
+	"base/internal/renderer"
 	"base/pkg/i18n"
-	logr "base/pkg/logger"
 	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"
 )
 
 func main() {
-	context := ctx.NewContext(initDatabase(), initLogger(), initLocalizer())
+	context := ctx.NewContext(initDatabase(), initLocalizer())
+	renderer.NewRenderer(context)
 	router := initRouter(context)
 	prepareDatabase(context)
 	startServer(router)
-}
-
-func initLogger() *logr.Logger {
-	return logr.NewLogger()
 }
 
 func initLocalizer() *i18n.Localizer {

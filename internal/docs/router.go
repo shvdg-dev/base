@@ -6,11 +6,11 @@ import (
 )
 
 type Docs struct {
-	context *ctx.Context
+	Context *ctx.Context
 }
 
 func NewDocs(context *ctx.Context) *Docs {
-	return &Docs{context: context}
+	return &Docs{Context: context}
 }
 
 func (d *Docs) SetupRouter(router chi.Router) {

@@ -6,7 +6,7 @@ import (
 )
 
 func (h *Home) HandleHomePage(writer http.ResponseWriter, request *http.Request) {
-	h.context.Renderer.Render(
+	h.Context.Renderer.Render(
 		doc.NewInfo(request, doc.WithTitle("Home")), h.Page(),
 		writer, request)
 }

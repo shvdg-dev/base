@@ -6,11 +6,11 @@ import (
 )
 
 type Home struct {
-	context *ctx.Context
+	Context *ctx.Context
 }
 
 func NewHome(context *ctx.Context) *Home {
-	return &Home{context: context}
+	return &Home{Context: context}
 }
 
 func (h *Home) SetupRouter(router chi.Router) {

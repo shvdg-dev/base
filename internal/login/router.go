@@ -6,11 +6,11 @@ import (
 )
 
 type Login struct {
-	context *ctx.Context
+	Context *ctx.Context
 }
 
 func NewLogin(context *ctx.Context) *Login {
-	return &Login{context: context}
+	return &Login{Context: context}
 }
 
 func (l *Login) SetupRouter(router chi.Router) {

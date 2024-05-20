@@ -6,7 +6,7 @@ import (
 )
 
 func (d *Docs) HandleDocsPage(writer http.ResponseWriter, request *http.Request) {
-	d.context.Renderer.Render(
+	d.Context.Renderer.Render(
 		doc.NewInfo(request, doc.WithTitle("Docs")), d.Page(),
 		writer, request)
 }

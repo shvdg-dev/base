@@ -6,5 +6,5 @@ import (
 )
 
 func (h *Home) Page() Node {
-	return Div(Text(h.context.Localizer.Localize("HomeIntroduction")))
+	return Div(Text(h.Context.Localizer.Localize("HomeIntroduction")))
 }

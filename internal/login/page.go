@@ -16,7 +16,7 @@ type Page struct {
 }
 
 func (l *Login) NewPage(info *doc.Info) *Page {
-	return &Page{Info: info, Context: l.context}
+	return &Page{Info: info, Context: l.Context}
 }
 
 func (p *Page) CreateLoginPage() Node {

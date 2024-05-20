@@ -1,4 +1,5 @@
-// After a request with HTMX
+// On HTMX events
+document.addEventListener('htmx:beforeSwap', (evt) => overruleSwapping(evt));
 document.addEventListener('htmx:afterRequest', (evt) => updateTitle(evt));
 document.addEventListener('htmx:afterRequest', (evt) => updateMenu(evt));
 
@@ -34,5 +35,17 @@ function updateMenu(request) {
             menuItem.classList.remove("border-transparent");
             menuItem.classList.add("border-primary");
         }
+    }
+}
+
+/**
+ * Overrule swapping for certain status codes.
+ * @param request The request which has the status code.
+ */
+function overruleSwapping(request){
+    const status = request?.detail?.xhr?.status;
+    if(status === 401){
+        // Allow a 401 response to swap, as it will navigate to a 'authentication required' page.
+        request.detail.shouldSwap = true;
     }
 }

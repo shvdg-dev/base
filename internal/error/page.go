@@ -8,15 +8,15 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-type Page struct {
+type Error struct {
 	Context *ctx.Context
 }
 
-func NewPage(context *ctx.Context) *Page {
-	return &Page{Context: context}
+func NewError(context *ctx.Context) *Error {
+	return &Error{Context: context}
 }
 
-func (e *Page) CreateAuthenticationRequiredPage() Node {
+func (e *Error) CreateAuthenticationRequiredPage() Node {
 	return Div(
 		Div(Class("flex"), icons.ShieldX(Class("mr-2 text-yellow-500")), Text("Authentication is required for accessing this page.")),
 		Div(Class("pt-5"),

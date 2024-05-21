@@ -1,4 +1,4 @@
-package document
+package components
 
 import (
 	ctx "base/internal/context"
@@ -13,8 +13,6 @@ import (
 
 type Navbar struct {
 	Context  *ctx.Context
-	Info     *info.Info
-	Request  *http.Request
 	NavItems []NavItem
 }
 
@@ -24,11 +22,8 @@ type NavItem struct {
 	IsActive bool
 }
 
-func (d *Document) NewNavBar(info *info.Info, request *http.Request) *Navbar {
-	navbar := &Navbar{Context: d.Context, Info: info, Request: request}
-	navbar.NavItems = []NavItem{
-		navbar.NewNavItem("/home", navbar.Context.Localizer.Localize("Home")),
-		navbar.NewNavItem("/docs", navbar.Context.Localizer.Localize("Docs"))}
+func NewNavBar(context *ctx.Context) *Navbar {
+	navbar := &Navbar{Context: context}
 	return navbar
 }
 
@@ -40,11 +35,11 @@ func (n *Navbar) NewNavItem(path, name string) NavItem {
 	}
 }
 
-func (n *Navbar) CreateNavbar() Node {
+func (n *Navbar) CreateNavbar(info *info.Info, request *http.Request) Node {
 	return Div(Class("h-15 navbar bg-base-200"), hx.PushURL("true"), hx.Target("#content"),
 		n.CreateEmblem(),
-		n.CreateMenuItems(),
-		n.CreateOptions(),
+		n.CreateNavItems(info),
+		n.CreateOptions(request),
 	)
 }
 
@@ -57,8 +52,11 @@ func (n *Navbar) CreateEmblem() Node {
 	)
 }
 
-func (n *Navbar) CreateMenuItems() Node {
-	n.setActiveLink()
+func (n *Navbar) CreateNavItems(info *info.Info) Node {
+	n.NavItems = []NavItem{
+		n.NewNavItem("/home", n.Context.Localizer.Localize("Home")),
+		n.NewNavItem("/docs", n.Context.Localizer.Localize("Docs"))}
+	n.setActiveLink(info.Path)
 	return Div(ID("menu-items"), hx.SwapOOB("true"), Class("navbar-center"),
 		Ul(Class("menu menu-horizontal px-1"),
 			Group(Map(n.NavItems, func(navItem NavItem) Node {
@@ -66,9 +64,9 @@ func (n *Navbar) CreateMenuItems() Node {
 			}))))
 }
 
-func (n *Navbar) setActiveLink() {
+func (n *Navbar) setActiveLink(currentPath string) {
 	for index, link := range n.NavItems {
-		if link.Path == n.Info.Path {
+		if link.Path == currentPath {
 			n.NavItems[index].IsActive = true
 		}
 	}
@@ -80,7 +78,7 @@ func (n *NavItem) CreateNavItem() Node {
 	)
 }
 
-func (n *Navbar) CreateOptions() Node {
+func (n *Navbar) CreateOptions(request *http.Request) Node {
 	return Div(Class("navbar-end pr-12"),
 		Div(Class("dropdown dropdown-end"), hx.PushURL("true"), hx.Target("#content"),
 			Button(Class("btn btn-circle border-primary"), icons.User()),
@@ -88,12 +86,12 @@ func (n *Navbar) CreateOptions() Node {
 				TabIndex("0"),
 				Button(Class("btn btn-sm"), icons.User(), Text("Profile"), hx.Get("/profile")),
 				Button(Class("btn btn-sm"), icons.Cog(), Text("Settings"), hx.Get("/settings")),
-				n.CreateInOutButton())))
+				n.CreateInOutButton(request))))
 }
 
-func (n *Navbar) CreateInOutButton() Node {
+func (n *Navbar) CreateInOutButton(request *http.Request) Node {
 	base := Group([]Node{ID("login-logout"), hx.SwapOOB("true"), Class("btn btn-sm")})
-	if n.Context.Sessions.IsAuthenticated(n.Request) {
+	if n.Context.Sessions.IsAuthenticated(request) {
 		return Button(base, icons.LogOut(), Text("Logout"), hx.Get("/logout"))
 	} else {
 		return Button(base, icons.LogIn(), Text("Login"), hx.Get("/login"))

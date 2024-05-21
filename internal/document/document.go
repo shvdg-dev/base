@@ -3,6 +3,7 @@ package document
 import (
 	ctx "base/internal/context"
 	"base/internal/document/info"
+	vi "base/internal/views"
 	. "github.com/maragudk/gomponents"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
@@ -11,16 +12,17 @@ import (
 
 type Document struct {
 	Context *ctx.Context
+	Views   *vi.Views
 }
 
-func NewDocument(context *ctx.Context) *Document {
-	return &Document{Context: context}
+func NewDocument(context *ctx.Context, views *vi.Views) *Document {
+	return &Document{Context: context, Views: views}
 }
 
 // CreateDocument creates an HTML document with the given title and content.
 // The document includes the necessary scripts and stylesheets for the page to function properly.
 // The content area is a slot, which can be updated dynamically using HTMX.
-func (d *Document) CreateDocument(info *info.Info, content Node, request *http.Request) Node {
+func (d *Document) CreateDocument(request *http.Request, info *info.Info, content ...Node) Node {
 	return HTML5(HTML5Props{
 		Title:    info.Title,
 		Language: "en",
@@ -32,11 +34,11 @@ func (d *Document) CreateDocument(info *info.Info, content Node, request *http.R
 		},
 		Body: []Node{
 			Body(
-				Div(Class("h-[80vh]"), d.NewNavBar(info, request).CreateNavbar(),
+				Div(Class("h-[80vh]"), d.Views.Navbar.CreateNavbar(info, request),
 					Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
 						Div(Class("h-full rounded-lg bg-base-200"),
 							Main(Class("h-full p-5"), ID("content"),
-								d.CreatePartial(content)))))),
+								d.CreatePartial(content...)))))),
 		},
 	})
 }

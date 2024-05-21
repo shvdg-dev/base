@@ -7,7 +7,6 @@ import (
 )
 
 func (d *Docs) HandleDocsPage(writer http.ResponseWriter, request *http.Request) {
-	rend.GetRenderer().Render(
-		doc.NewInfo(request, doc.WithTitle("Docs")), d.CreateDocsPage(),
-		writer, request)
+	info := doc.NewInfo(request, doc.WithTitle("Docs"))
+	rend.GetRenderer().Render(writer, request, info, d.Views.Docs.CreateDocsPage())
 }

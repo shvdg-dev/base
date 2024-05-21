@@ -4,6 +4,7 @@ import (
 	ctx "base/internal/context"
 	doc "base/internal/document"
 	"base/internal/document/info"
+	vi "base/internal/views"
 	. "github.com/maragudk/gomponents"
 	hxhttp "github.com/maragudk/gomponents-htmx/http"
 	"log"
@@ -18,9 +19,9 @@ type Renderer struct {
 var renderer *Renderer
 var once sync.Once
 
-func NewRenderer(context *ctx.Context) *Renderer {
+func NewRenderer(context *ctx.Context, views *vi.Views) *Renderer {
 	once.Do(func() {
-		renderer = &Renderer{Document: doc.NewDocument(context)}
+		renderer = &Renderer{Document: doc.NewDocument(context, views)}
 	})
 	return renderer
 }
@@ -33,16 +34,15 @@ func GetRenderer() *Renderer {
 }
 
 // Render renders a component in either the content slot or in a new Document when no target is defined.
-func (r *Renderer) Render(info *info.Info, content Node, writer http.ResponseWriter, request *http.Request) {
+func (r *Renderer) Render(writer http.ResponseWriter, request *http.Request, info *info.Info, content ...Node) {
 	target := hxhttp.GetTarget(request.Header)
 
 	var err error
 	if target != "" {
 		writer.Header().Set("H-Title", info.Title)
-		navBar := r.Document.NewNavBar(info, request)
-		err = r.Document.CreatePartial(content, navBar.CreateMenuItems(), navBar.CreateInOutButton()).Render(writer)
+		err = r.Document.CreatePartial(r.Document.Views.Navbar.CreateNavItems(info), Group(content)).Render(writer)
 	} else {
-		err = r.Document.CreateDocument(info, content, request).Render(writer)
+		err = r.Document.CreateDocument(request, info, Group(content)).Render(writer)
 	}
 
 	if err != nil {

@@ -3,18 +3,19 @@ package middleware
 import (
 	ctx "base/internal/context"
 	doc "base/internal/document/info"
-	err "base/internal/error"
 	rend "base/internal/renderer"
+	vi "base/internal/views"
 	"net/http"
 	"strings"
 )
 
 type Middleware struct {
 	Context *ctx.Context
+	Views   *vi.Views
 }
 
-func NewMiddleware(context *ctx.Context) *Middleware {
-	return &Middleware{Context: context}
+func NewMiddleware(context *ctx.Context, views *vi.Views) *Middleware {
+	return &Middleware{Context: context, Views: views}
 }
 
 func (m *Middleware) Authentication(next http.Handler) http.Handler {
@@ -22,10 +23,8 @@ func (m *Middleware) Authentication(next http.Handler) http.Handler {
 		isAuthenticated := m.Context.Sessions.IsAuthenticated(request)
 		if !IsResourceAccessible(request.URL.Path) && (!isAuthenticated) {
 			writer.WriteHeader(http.StatusUnauthorized)
-			rend.GetRenderer().Render(
-				doc.NewInfo(request, doc.WithTitle("401 - Unauthorized, whoops!")),
-				err.NewPage(m.Context).CreateAuthenticationRequiredPage(),
-				writer, request)
+			info := doc.NewInfo(request, doc.WithTitle("401 - Unauthorized, whoops!"))
+			rend.GetRenderer().Render(writer, request, info, m.Views.Error.CreateAuthenticationRequiredPage())
 			return
 		}
 		next.ServeHTTP(writer, request)

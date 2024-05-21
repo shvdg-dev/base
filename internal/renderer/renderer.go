@@ -7,33 +7,18 @@ import (
 	vi "base/internal/views"
 	. "github.com/maragudk/gomponents"
 	hxhttp "github.com/maragudk/gomponents-htmx/http"
-	"log"
 	"net/http"
-	"sync"
 )
 
 type Renderer struct {
 	Document *doc.Document
 }
 
-var renderer *Renderer
-var once sync.Once
-
 func NewRenderer(context *ctx.Context, views *vi.Views) *Renderer {
-	once.Do(func() {
-		renderer = &Renderer{Document: doc.NewDocument(context, views)}
-	})
-	return renderer
+	return &Renderer{Document: doc.NewDocument(context, views)}
 }
 
-func GetRenderer() *Renderer {
-	if renderer == nil {
-		log.Fatal("Renderer is not instantiated yet.")
-	}
-	return renderer
-}
-
-// Render renders a component in either the content slot or in a new Document when no target is defined.
+// Render renders the provided components normally or in a new Document when no target is defined.
 func (r *Renderer) Render(writer http.ResponseWriter, request *http.Request, info *info.Info, content ...Node) {
 	target := hxhttp.GetTarget(request.Header)
 

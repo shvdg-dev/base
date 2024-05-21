@@ -7,7 +7,7 @@ import (
 	"base/internal/home"
 	"base/internal/login"
 	midware "base/internal/middleware"
-	"base/internal/renderer"
+	rend "base/internal/renderer"
 	vi "base/internal/views"
 	"base/pkg/i18n"
 	"github.com/go-chi/chi/v5"
@@ -18,8 +18,8 @@ import (
 func main() {
 	context := ctx.NewContext(initDatabase(), initLocalizer())
 	views := vi.NewViews(context)
-	renderer.NewRenderer(context, views)
-	router := initRouter(context, views)
+	renderer := rend.NewRenderer(context, views)
+	router := initRouter(context, views, renderer)
 	prepareDatabase(context)
 	startServer(router)
 }
@@ -30,18 +30,18 @@ func initLocalizer() *i18n.Localizer {
 	return trans
 }
 
-func initRouter(context *ctx.Context, views *vi.Views) chi.Router {
+func initRouter(context *ctx.Context, views *vi.Views, renderer *rend.Renderer) chi.Router {
 	router := chi.NewRouter()
-	initMiddleware(router, context, views)
+	initMiddleware(router, context, views, renderer)
 	files.SetupRouter(router)
-	home.NewHome(context, views).SetupRouter(router)
-	docs.NewDocs(context, views).SetupRouter(router)
-	login.NewLogin(context, views).SetupRouter(router)
+	home.NewHome(context, views, renderer).SetupRouter(router)
+	docs.NewDocs(context, views, renderer).SetupRouter(router)
+	login.NewLogin(context, views, renderer).SetupRouter(router)
 	return router
 }
 
-func initMiddleware(router chi.Router, context *ctx.Context, views *vi.Views) *midware.Middleware {
-	middleware := midware.NewMiddleware(context, views)
+func initMiddleware(router chi.Router, context *ctx.Context, views *vi.Views, renderer *rend.Renderer) *midware.Middleware {
+	middleware := midware.NewMiddleware(context, views, renderer)
 	router.Use(context.Sessions.Manager.LoadAndSave)
 	router.Use(middleware.Authentication)
 	return middleware

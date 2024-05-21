@@ -10,12 +10,13 @@ import (
 )
 
 type Middleware struct {
-	Context *ctx.Context
-	Views   *vi.Views
+	Context  *ctx.Context
+	Views    *vi.Views
+	Renderer *rend.Renderer
 }
 
-func NewMiddleware(context *ctx.Context, views *vi.Views) *Middleware {
-	return &Middleware{Context: context, Views: views}
+func NewMiddleware(context *ctx.Context, views *vi.Views, renderer *rend.Renderer) *Middleware {
+	return &Middleware{Context: context, Views: views, Renderer: renderer}
 }
 
 func (m *Middleware) Authentication(next http.Handler) http.Handler {
@@ -24,7 +25,7 @@ func (m *Middleware) Authentication(next http.Handler) http.Handler {
 		if !IsResourceAccessible(request.URL.Path) && (!isAuthenticated) {
 			writer.WriteHeader(http.StatusUnauthorized)
 			info := doc.NewInfo(request, doc.WithTitle("401 - Unauthorized, whoops!"))
-			rend.GetRenderer().Render(writer, request, info, m.Views.Error.CreateAuthenticationRequiredPage())
+			m.Renderer.Render(writer, request, info, m.Views.Error.CreateAuthenticationRequiredPage())
 			return
 		}
 		next.ServeHTTP(writer, request)

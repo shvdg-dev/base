@@ -25,6 +25,7 @@ func (r *Renderer) Render(writer http.ResponseWriter, request *http.Request, inf
 	var err error
 	if target != "" {
 		writer.Header().Set("H-Title", info.Title)
+		writer.Header().Set("H-Path", info.Path)
 		err = r.Document.CreatePartial(r.Document.Views.Navbar.CreateNavItems(info), Group(content)).Render(writer)
 	} else {
 		err = r.Document.CreateDocument(request, info, Group(content)).Render(writer)

@@ -22,15 +22,21 @@ type Info struct {
 	Errors          []string // List of error messages
 }
 
-func WithTitle(t string) Option {
+func WithPath(path string) Option {
 	return func(i *Info) {
-		i.Title = t
+		i.Path = path
 	}
 }
 
-func WithErrors(e []string) Option {
+func WithTitle(title string) Option {
 	return func(i *Info) {
-		i.Errors = e
+		i.Title = title
+	}
+}
+
+func WithErrors(errors []string) Option {
+	return func(i *Info) {
+		i.Errors = errors
 	}
 }
 

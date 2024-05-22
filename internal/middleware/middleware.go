@@ -24,7 +24,7 @@ func (m *Middleware) Authentication(next http.Handler) http.Handler {
 		isAuthenticated := m.Context.Sessions.IsAuthenticated(request)
 		if !IsResourceAccessible(request.URL.Path) && (!isAuthenticated) {
 			writer.WriteHeader(http.StatusUnauthorized)
-			info := doc.NewInfo(request, doc.WithTitle("401 - Unauthorized, whoops!"))
+			info := m.Context.Informer.NewInfo(request, doc.WithTitle("401 - Unauthorized, whoops!"))
 			m.Renderer.Render(writer, request, info, m.Views.Error.CreateAuthenticationRequiredPage())
 			return
 		}

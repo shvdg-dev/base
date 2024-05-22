@@ -34,7 +34,7 @@ func (d *Document) CreateDocument(request *http.Request, info *info.Info, conten
 		},
 		Body: []Node{
 			Body(
-				Div(Class("h-[80vh]"), d.Views.Navbar.CreateNavbar(info, request),
+				Div(Class("h-[80vh]"), d.Views.Navbar.CreateNavbar(info),
 					Div(Class("h-full pt-5 pb-5 pl-20 pr-20"),
 						Div(Class("h-full rounded-lg bg-base-200"),
 							Main(Class("h-full p-5"), ID("content"),

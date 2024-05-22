@@ -8,7 +8,6 @@ import (
 	hx "github.com/maragudk/gomponents-htmx"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
-	"net/http"
 )
 
 type Navbar struct {
@@ -35,11 +34,11 @@ func (n *Navbar) NewNavItem(path, name string) NavItem {
 	}
 }
 
-func (n *Navbar) CreateNavbar(info *info.Info, request *http.Request) Node {
+func (n *Navbar) CreateNavbar(info *info.Info) Node {
 	return Div(Class("h-15 navbar bg-base-200"), hx.PushURL("true"), hx.Target("#content"),
 		n.CreateEmblem(),
 		n.CreateNavItems(info),
-		n.CreateOptions(request),
+		n.CreateOptions(info),
 	)
 }
 
@@ -78,7 +77,7 @@ func (n *NavItem) CreateNavItem() Node {
 	)
 }
 
-func (n *Navbar) CreateOptions(request *http.Request) Node {
+func (n *Navbar) CreateOptions(info *info.Info) Node {
 	return Div(Class("navbar-end pr-12"),
 		Div(Class("dropdown dropdown-end"), hx.PushURL("true"), hx.Target("#content"),
 			Button(Class("btn btn-circle border-primary"), icons.User()),
@@ -86,12 +85,12 @@ func (n *Navbar) CreateOptions(request *http.Request) Node {
 				TabIndex("0"),
 				Button(Class("btn btn-sm"), icons.User(), Text("Profile"), hx.Get("/profile")),
 				Button(Class("btn btn-sm"), icons.Cog(), Text("Settings"), hx.Get("/settings")),
-				n.CreateInOutButton(request))))
+				n.CreateInOutButton(info))))
 }
 
-func (n *Navbar) CreateInOutButton(request *http.Request) Node {
+func (n *Navbar) CreateInOutButton(info *info.Info) Node {
 	base := Group([]Node{ID("login-logout"), hx.SwapOOB("true"), Class("btn btn-sm")})
-	if n.Context.Sessions.IsAuthenticated(request) {
+	if info.IsAuthenticated {
 		return Button(base, icons.LogOut(), Text("Logout"), hx.Get("/logout"))
 	} else {
 		return Button(base, icons.LogIn(), Text("Login"), hx.Get("/login"))

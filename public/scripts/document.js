@@ -32,8 +32,8 @@ function updateURL(request) {
  */
 function overruleSwapping(request){
     const status = request?.detail?.xhr?.status;
-    if(status === 401){
-        // Allow a 401 response to swap, as it will navigate to a 'authentication required' page.
+    if(status === 401 || status === 404){
+        // Allow a 4** response to swap, as it will navigate to the corresponding error page.
         request.detail.shouldSwap = true;
     }
 }

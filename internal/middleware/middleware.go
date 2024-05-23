@@ -22,10 +22,10 @@ func NewMiddleware(context *ctx.Context, views *vi.Views, renderer *rend.Rendere
 func (m *Middleware) Authentication(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(writer http.ResponseWriter, request *http.Request) {
 		isAuthenticated := m.Context.Sessions.IsAuthenticated(request)
-		if !IsResourceAccessible(request.URL.Path) && (!isAuthenticated) {
+		if !IsResourceAccessible(request.URL.Path) && !isAuthenticated {
 			writer.WriteHeader(http.StatusUnauthorized)
-			info := m.Context.Informer.NewInfo(request, doc.WithTitle("401 - Unauthorized, whoops!"))
-			m.Renderer.Render(writer, request, info, m.Views.Error.CreateAuthenticationRequiredPage())
+			info := m.Context.Informer.NewInfo(request, doc.WithTitle("401 - Not authenticated, whoops!"))
+			m.Renderer.Render(writer, request, info, m.Views.Error.CreateNotAuthenticatedPage())
 			return
 		}
 		next.ServeHTTP(writer, request)

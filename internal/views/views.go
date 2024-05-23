@@ -4,7 +4,7 @@ import (
 	ctx "base/internal/context"
 	. "base/internal/docs/views"
 	. "base/internal/document/components"
-	. "base/internal/error"
+	. "base/internal/error/views"
 	. "base/internal/home/views"
 	. "base/internal/login/views"
 )

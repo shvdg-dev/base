@@ -2,6 +2,7 @@ package login
 
 import (
 	inf "base/internal/document/info"
+	"base/pkg/utils"
 	"net/http"
 )
 
@@ -13,8 +14,9 @@ func (l *Login) HandleLoginPage(writer http.ResponseWriter, request *http.Reques
 func (l *Login) HandleLoggingIn(writer http.ResponseWriter, request *http.Request) {
 	email := request.FormValue("email")
 	password := request.FormValue("password")
+	isValidEmail := utils.IsValidEmail(email)
 	isCorrectPassword := l.Context.Users.IsPasswordCorrect(email, password)
-	if isCorrectPassword {
+	if isValidEmail && isCorrectPassword {
 		l.Context.Sessions.Store("isAuthenticated", true, request)
 		info := l.Context.Informer.NewInfo(request, inf.WithTitle("Home"), inf.WithPath("/home"))
 		l.Renderer.Render(writer, request, info,
@@ -28,8 +30,8 @@ func (l *Login) HandleLoggingIn(writer http.ResponseWriter, request *http.Reques
 
 func (l *Login) HandleLoggingOut(writer http.ResponseWriter, request *http.Request) {
 	l.Context.Sessions.Store("isAuthenticated", false, request)
-	info := l.Context.Informer.NewInfo(request, inf.WithTitle("401 - Unauthorized, whoops!"), inf.WithPath("/home"))
+	info := l.Context.Informer.NewInfo(request, inf.WithTitle("401 - Not authenticated, whoops!"), inf.WithPath("/home"))
 	l.Renderer.Render(writer, request, info,
-		l.Views.Error.CreateAuthenticationRequiredPage(),
+		l.Views.Error.CreateNotAuthenticatedPage(),
 		l.Views.Navbar.CreateInOutButton(info))
 }

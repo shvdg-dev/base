@@ -5,6 +5,7 @@ import (
 	"base/internal/document/info"
 	vi "base/internal/views"
 	. "github.com/maragudk/gomponents"
+	hx "github.com/maragudk/gomponents-htmx"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
 	"net/http"
@@ -47,7 +48,7 @@ func (d *Document) CreateDocument(request *http.Request, info *info.Info, conten
 // It is used when creating the document and for a snippet when swapping content with HTMX.
 // The included script offers the minimally required functionality for one snippet.
 func (d *Document) CreatePartial(content ...Node) Node {
-	return Div(Group(content), Script(Raw(partialScript)))
+	return Div(Group(content), Script(ID("partial-script"), hx.SwapOOB("true"), Raw(partialScript)))
 }
 
 const partialScript string = `

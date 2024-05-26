@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "alpinejs": "^3.13.10",
+    "caniuse-lite": "^1.0.30001621",
     "htmx.org": "^1.9.12"
   }
 }

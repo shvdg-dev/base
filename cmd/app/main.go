@@ -3,7 +3,7 @@ package main
 import (
 	ctx "base/internal/context"
 	"base/internal/docs"
-	err "base/internal/error"
+	erro "base/internal/error"
 	"base/internal/files"
 	"base/internal/home"
 	"base/internal/login"
@@ -35,7 +35,7 @@ func initRouter(context *ctx.Context, views *vi.Views, renderer *rend.Renderer) 
 	router := chi.NewRouter()
 	initMiddleware(router, context, views, renderer)
 	files.SetupRouter(router)
-	err.NewError(context, views, renderer).SetupRouter(router)
+	erro.NewError(context, views, renderer).SetupRouter(router)
 	home.NewHome(context, views, renderer).SetupRouter(router)
 	docs.NewDocs(context, views, renderer).SetupRouter(router)
 	login.NewLogin(context, views, renderer).SetupRouter(router)

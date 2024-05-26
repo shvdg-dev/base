@@ -2,13 +2,7 @@ package environment
 
 import (
 	"encoding/base64"
-	"github.com/joho/godotenv"
-	"log"
 	"os"
-)
-
-var (
-	isEnvLoaded bool // Used to indicate whether the .env file has been loaded.
 )
 
 // GetValueAsString retrieves an environment string value given a key.
@@ -19,13 +13,6 @@ var (
 // Returns:
 //   - The string value of the environment key.
 func GetValueAsString(key string) string {
-	if !isEnvLoaded {
-		err := godotenv.Load()
-		if err != nil {
-			log.Fatal("Error loading .env file")
-		}
-		isEnvLoaded = true
-	}
 	return os.Getenv(key)
 }
 

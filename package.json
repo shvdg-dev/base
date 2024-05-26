@@ -7,7 +7,7 @@
     "build:tailwind": "npx tailwindcss -i ./public/styles/input.css -o ./public/styles/generated/output.css",
     "copy:htmx": "shx mkdir -p ./public/scripts/lib && shx cp -R ./node_modules/htmx.org/dist/htmx.min.js ./public/scripts/lib/htmx.min.js",
     "copy:alpine": "shx mkdir -p ./public/scripts/lib && shx cp -R ./node_modules/alpinejs/dist/cdn.min.js ./public/scripts/lib/alpinejs.min.js",
-    "build": "npm run build:tailwind && npm run copy:htmx && npm run copy:alpine && go build -C cmd/app"
+    "build": "npm run build:tailwind && npm run copy:htmx && npm run copy:alpine"
   },
   "devDependencies": {
     "daisyui": "^4.10.2",

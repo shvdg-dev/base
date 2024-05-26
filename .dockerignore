@@ -1,0 +1,15 @@
+# Ignore
+.git
+.gitignore
+.idea
+*.tmp
+*.log
+.air.toml
+.air.toml.example
+Dockerfile
+README.md
+.env.example
+.env
+
+# Ignore node_modules
+node_modules

@@ -2,6 +2,7 @@ package environment
 
 import (
 	"encoding/base64"
+	_ "github.com/joho/godotenv/autoload" // Load environment variables from a .env file
 	"os"
 )
 

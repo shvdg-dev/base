@@ -6,10 +6,12 @@ import (
 	"log"
 )
 
+// Connection represents a connection to a database.
 type Connection struct {
 	DB *sql.DB
 }
 
+// NewConnection creates a new Connection and establishes a connection to the database using the specified URL.
 func NewConnection(URL string) *Connection {
 	database, err := sql.Open("postgres", URL)
 	if err != nil {

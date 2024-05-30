@@ -8,7 +8,6 @@ import (
 	hx "github.com/maragudk/gomponents-htmx"
 	. "github.com/maragudk/gomponents/components"
 	. "github.com/maragudk/gomponents/html"
-	"net/http"
 )
 
 type Document struct {
@@ -20,10 +19,10 @@ func NewDocument(context *ctx.Context, views *vi.Views) *Document {
 	return &Document{Context: context, Views: views}
 }
 
-// CreateDocument creates an HTML document with the given title and content.
+// CreateDocument creates an HTML document.
 // The document includes the necessary scripts and stylesheets for the page to function properly.
 // The content area is a slot, which can be updated dynamically using HTMX.
-func (d *Document) CreateDocument(request *http.Request, info *info.Info, content ...Node) Node {
+func (d *Document) CreateDocument(info *info.Info, content ...Node) Node {
 	return HTML5(HTML5Props{
 		Title:    info.Title,
 		Language: "en",
@@ -51,6 +50,7 @@ func (d *Document) CreatePartial(content ...Node) Node {
 	return Div(Group(content), Script(ID("partial-script"), hx.SwapOOB("true"), Raw(partialScript)))
 }
 
+// partialScript represents a JavaScript code snippet.
 const partialScript string = `
 // After loading the DOM
 document.addEventListener("DOMContentLoaded", () => refresh(), {once: true});

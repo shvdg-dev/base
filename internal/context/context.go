@@ -9,8 +9,8 @@ import (
 	loggr "base/pkg/logger"
 )
 
+// Context represents the execution context of the application.
 type Context struct {
-	Database  *database.Connection
 	Localizer *i18n.Localizer
 	Logger    *loggr.Logger
 	Informer  *info.Informer
@@ -18,10 +18,10 @@ type Context struct {
 	Users     *users.Service
 }
 
+// NewContext initializes a new Context structure with the given dependencies.
 func NewContext(database *database.Connection, localizer *i18n.Localizer) *Context {
 	sessions := sess.NewService(database)
 	return &Context{
-		Database:  database,
 		Localizer: localizer,
 		Logger:    loggr.NewLogger(),
 		Informer:  info.NewInformant(sessions),

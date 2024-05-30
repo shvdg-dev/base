@@ -1,26 +1,39 @@
 package constants
 
+// Authentication related
 const (
-	BundleDocs                   string = "Docs"
-	BundleDocsIntro              string = "DocsIntro"
-	BundleHome                   string = "Home"
-	BundleHomeIntroduction       string = "HomeIntroduction"
 	BundleLogin                  string = "Login"
 	BundleLogout                 string = "Logout"
-	BundleProfile                string = "Profile"
-	BundleSettings               string = "Settings"
-	BundleAuthenticationRequired string = "AuthenticationRequired"
-	BundleNavigateToLogin        string = "NavigateToLogin"
-	BundlePageNotFound           string = "PageNotFound"
-	BundleNavigateToHome         string = "NavigateToHome"
-	BundlePageNotFoundTitle      string = "PageNotFoundTitle"
-	BundleWelcome                string = "Welcome"
-	BundleEmail                  string = "Email"
 	BundlePassword               string = "Password"
 	BundleRegister               string = "Register"
+	BundleEmail                  string = "Email"
 	BundleRegisterQuestion       string = "RegisterQuestion"
+	BundleInvalidEmailOrPassword string = "InvalidEmailOrPassword"
 	BundleForgotPasswordQuestion string = "ForgotPasswordQuestion"
 	BundleResetPassword          string = "ResetPassword"
-	BundleInvalidEmailOrPassword string = "InvalidEmailOrPassword"
+	BundleAuthenticationRequired string = "AuthenticationRequired"
 	BundleNotAuthenticatedTitle  string = "NotAuthenticatedTitle"
+)
+
+// Navigation related
+const (
+	BundleHome              string = "Home"
+	BundleDocs              string = "Docs"
+	BundleNavigateToLogin   string = "NavigateToLogin"
+	BundleNavigateToHome    string = "NavigateToHome"
+	BundlePageNotFound      string = "PageNotFound"
+	BundlePageNotFoundTitle string = "PageNotFoundTitle"
+)
+
+// Page Introductions
+const (
+	BundleHomeIntro string = "HomeIntroduction"
+	BundleDocsIntro string = "DocsIntroduction"
+)
+
+// Other
+const (
+	BundleWelcome  string = "Welcome"
+	BundleProfile  string = "Profile"
+	BundleSettings string = "Settings"
 )

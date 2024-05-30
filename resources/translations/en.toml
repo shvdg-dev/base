@@ -1,65 +1,29 @@
-[Home]
-other = "Home"
+# Authentication related
+Login = "Login"
+Logout = "Logout"
+Password = "Password"
+Register = "Register"
+Email = "E-mail"
+RegisterQuestion = "Not yet an account?"
+InvalidEmailOrPassword = "Invalid e-mail or password"
+ForgotPasswordQuestion = "Forgot your password?"
+ResetPassword = "Reset your password"
+AuthenticationRequired = "You are required to be authenticated"
+NotAuthenticatedTitle = "401 - Not authenticated, whoops!"
 
-[Docs]
-other = "Docs"
+# Navigation related
+Home = "Home"
+Docs = "Docs"
+NavigateToLogin = "Go to login"
+NavigateToHome = "Go to home"
+PageNotFound = "This page does not even exist!?"
+PageNotFoundTitle = "404 - Page not found!"
 
-[HomeIntroduction]
-other = "Welcome on the home page!"
+# Page Introductions
+HomeIntroduction = "Welcome on the home page!"
+DocsIntroduction = "Welcome to the docs! It is empty of course!"
 
-[DocsIntroduction]
-other = "Welcome to the docs! It is empty ofcourse!"
-
-[AuthenticationRequired]
-other = "You are required to be authenticated"
-
-[NavigateToLogin]
-other = "Go to login"
-
-[PageNotFound]
-other = "This page does not even exist!?"
-
-[NavigateToHome]
-other = "Go to home"
-
-[PageNotFoundTitle]
-other = "404 - Page not found!"
-
-[Welcome]
-other = "Welcome"
-
-[Email]
-other = "E-mail"
-
-[Password]
-other = "Password"
-
-[Register]
-other = "Register"
-
-[RegisterQuestion]
-other = "Not yet an account?"
-
-[ForgotPasswordQuestion]
-other = "Forgot your password?"
-
-[ResetPassword]
-other = "Reset your password"
-
-[InvalidEmailOrPassword]
-other = "Invalid e-mail or password"
-
-[NotAuthenticatedTitle]
-other = "401 - Not authenticated, whoops!"
-
-[Profile]
-other = "Profile"
-
-[Settings]
-other = "Settings"
-
-[Login]
-other = "Login"
-
-[Logout]
-other = "Logout"
+# Other
+Welcome = "Welcome"
+Profile = "Profile"
+Settings = "Settings"

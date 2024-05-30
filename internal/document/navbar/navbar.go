@@ -103,8 +103,8 @@ func (n *Navbar) CreateOptions(info *info.Info) Node {
 func (n *Navbar) CreateInOutButton(info *info.Info) Node {
 	base := Group([]Node{ID("login-logout"), hx.SwapOOB("true"), Class("btn btn-sm")})
 	if info.IsAuthenticated {
-		return Button(base, icons.LogOut(), Text(n.Context.Localizer.Localize(consts.BundleLogin)), hx.Get(consts.PathLogin))
+		return Button(base, icons.LogOut(), Text(n.Context.Localizer.Localize(consts.BundleLogout)), hx.Get(consts.PathLogout))
 	} else {
-		return Button(base, icons.LogIn(), Text(n.Context.Localizer.Localize(consts.BundleLogout)), hx.Get(consts.PathLogout))
+		return Button(base, icons.LogIn(), Text(n.Context.Localizer.Localize(consts.BundleLogin)), hx.Get(consts.PathLogin))
 	}
 }

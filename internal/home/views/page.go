@@ -19,5 +19,5 @@ func NewHome(context *ctx.Context) *Home {
 
 // CreateHomePage creates a home page.
 func (h *Home) CreateHomePage() Node {
-	return Div(Text(h.Context.Localizer.Localize(consts.BundleHomeIntroduction)))
+	return Div(Text(h.Context.Localizer.Localize(consts.BundleHomeIntro)))
 }

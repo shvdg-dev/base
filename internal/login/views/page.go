@@ -34,16 +34,10 @@ func (l *Login) CreateLoginPage(info *info.Info, data *Data) Node {
 
 // CreateLoginForm Creates the login form.
 func (l *Login) CreateLoginForm(info *info.Info, data *Data) Node {
-	currentEmail := ""
-	currentPassword := ""
-	if data != nil {
-		currentEmail = data.CurrentEmail
-		currentPassword = data.CurrentPassword
-	}
 	return FormEl(hx.Post(consts.PathLogin), hx.Target("#content"),
 		Div(Class("flex flex-col space-y-2"),
-			l.CreateMailField(info, currentEmail),
-			l.CreatePasswordField(info, currentPassword),
+			l.CreateMailField(info, data.CurrentEmail),
+			l.CreatePasswordField(info, data.CurrentPassword),
 			l.CreateLoginButton()))
 }
 

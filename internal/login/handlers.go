@@ -10,7 +10,8 @@ import (
 // HandleLoginPage handles the login page request.
 func (l *Login) HandleLoginPage(writer http.ResponseWriter, request *http.Request) {
 	info := l.Context.Informer.NewInfo(request, inf.WithTitle(l.Context.Localizer.Localize(consts.BundleLogin)))
-	page := l.Views.Login.CreateLoginPage(info, nil)
+	data := l.Views.Login.NewData("", "")
+	page := l.Views.Login.CreateLoginPage(info, data)
 	l.Renderer.Render(writer, request, info, page)
 }
 

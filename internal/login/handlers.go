@@ -15,10 +15,7 @@ func (l *Login) HandleLoginPage(writer http.ResponseWriter, request *http.Reques
 	l.Renderer.Render(writer, request, info, page)
 }
 
-// HandleLoggingIn handles the login request by extracting the email and password credentials,
-// checking if the user is valid, and redirecting the user accordingly. If the user is valid,
-// it redirects the authenticated user to the appropriate page. If the user is not valid,
-// it redirects the unauthenticated user back to the login page with the entered email and password.
+// HandleLoggingIn handles the login request by validating the user and redirecting accordingly.
 func (l *Login) HandleLoggingIn(writer http.ResponseWriter, request *http.Request) {
 	email, password := l.extractCredentials(request)
 	if l.isValidUser(email, password) {

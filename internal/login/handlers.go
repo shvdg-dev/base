@@ -15,24 +15,46 @@ func (l *Login) HandleLoginPage(writer http.ResponseWriter, request *http.Reques
 	l.Renderer.Render(writer, request, info, page)
 }
 
-// HandleLoggingIn handles the process of logging the user.
+// HandleLoggingIn handles the login request by extracting the email and password credentials,
+// checking if the user is valid, and redirecting the user accordingly. If the user is valid,
+// it redirects the authenticated user to the appropriate page. If the user is not valid,
+// it redirects the unauthenticated user back to the login page with the entered email and password.
 func (l *Login) HandleLoggingIn(writer http.ResponseWriter, request *http.Request) {
-	email := request.FormValue(consts.ValueEmail)
-	password := request.FormValue(consts.ValuePassword)
-	isValidEmail := utils.IsValidEmail(email)
-	isCorrectPassword := l.Context.Users.IsPasswordCorrect(email, password)
-	if isValidEmail && isCorrectPassword {
-		l.Context.Sessions.Store(consts.ValueIsAuthenticated, true, request)
-		info := l.Context.Informer.NewInfo(request, inf.WithTitle(l.Context.Localizer.Localize(consts.BundleHome)), inf.WithPath(consts.PathHome))
-		l.Renderer.Render(writer, request, info,
-			l.Views.Home.CreateHomePage(),
-			l.Views.Navbar.CreateInOutButton(info))
+	email, password := l.extractCredentials(request)
+	if l.isValidUser(email, password) {
+		l.redirectAuthenticatedUser(writer, request)
 	} else {
-		info := l.Context.Informer.NewInfo(request, inf.WithErrors([]string{l.Context.Localizer.Localize(consts.BundleInvalidEmailOrPassword)}))
-		data := l.Views.Login.NewData(email, password)
-		page := l.Views.Login.CreateLoginPage(info, data)
-		l.Renderer.Render(writer, request, info, page)
+		l.redirectUnauthenticatedUser(writer, request, email, password)
 	}
+}
+
+// extractCredentials extracts the email and password from the request form values.
+func (l *Login) extractCredentials(request *http.Request) (string, string) {
+	return request.FormValue(consts.ValueEmail), request.FormValue(consts.ValuePassword)
+}
+
+// isValidUser validates if the provided email and password are valid for the user.
+func (l *Login) isValidUser(email, password string) bool {
+	return utils.IsValidEmail(email) && l.Context.Users.IsPasswordCorrect(email, password)
+}
+
+// redirectAuthenticatedUser redirects the authenticated user to the home page after successful login.
+func (l *Login) redirectAuthenticatedUser(writer http.ResponseWriter, request *http.Request) {
+	l.Context.Sessions.Store(consts.ValueIsAuthenticated, true, request)
+	info := l.Context.Informer.NewInfo(request,
+		inf.WithTitle(l.Context.Localizer.Localize(consts.BundleHome)),
+		inf.WithPath(consts.PathHome))
+	l.Renderer.Render(writer, request, info,
+		l.Views.Home.CreateHomePage(),
+		l.Views.Navbar.CreateInOutButton(info))
+}
+
+// redirectUnauthenticatedUser redirects the unauthenticated user to the login page with the provided email and password.
+func (l *Login) redirectUnauthenticatedUser(writer http.ResponseWriter, request *http.Request, email, password string) {
+	info := l.Context.Informer.NewInfo(request, inf.WithErrors([]string{l.Context.Localizer.Localize(consts.BundleInvalidEmailOrPassword)}))
+	data := l.Views.Login.NewData(email, password)
+	page := l.Views.Login.CreateLoginPage(info, data)
+	l.Renderer.Render(writer, request, info, page)
 }
 
 // HandleLoggingOut handles the process of logging out a user.

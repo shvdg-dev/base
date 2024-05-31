@@ -13,8 +13,5 @@ func HashPassword(plainPassword string) (string, error) {
 // ArePasswordsEqual compares the plain password with the hashed password.
 func ArePasswordsEqual(plainPassword, hashedPassword string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(plainPassword))
-	if err != nil {
-		return false
-	}
-	return true
+	return err == nil
 }

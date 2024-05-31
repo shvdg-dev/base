@@ -37,6 +37,9 @@ func (u *Service) InsertUser(email, plainPassword string) {
 
 // IsPasswordCorrect checks if the given password is correct for the user with the given email.
 func (u *Service) IsPasswordCorrect(email, plainPassword string) bool {
+	if email == "" || plainPassword == "" {
+		return false
+	}
 	var foundHashedPassword string
 	err := u.Database.DB.QueryRow(selectUserPasswordQuery, email).Scan(&foundHashedPassword)
 	if err != nil {

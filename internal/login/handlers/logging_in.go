@@ -3,7 +3,7 @@ package handlers
 import (
 	"base/internal/constants"
 	inf "base/internal/document/info"
-	viewData "base/internal/login/data"
+	data "base/internal/login/data"
 	"base/pkg/utils"
 	"net/http"
 )
@@ -31,18 +31,18 @@ func (l *Login) isValidUser(email, password string) bool {
 // redirectAuthenticatedUser redirects the authenticated user to the home page after successful login.
 func (l *Login) redirectAuthenticatedUser(writer http.ResponseWriter, request *http.Request) {
 	l.Context.Sessions.Store(constants.ValueIsAuthenticated, true, request)
-	info := l.Context.Informer.NewInfo(request,
-		inf.WithTitle(l.Context.Localizer.Localize(constants.BundleHome)),
-		inf.WithPath(constants.PathHome))
-	l.Renderer.Render(writer, request, info,
-		l.Views.Home.CreateHomePage(),
-		l.Views.Navbar.CreateInOutButton(info))
+	title := l.Context.Localizer.Localize(constants.BundleHome)
+	info := l.Context.Informer.NewInfo(request, inf.WithTitle(title), inf.WithPath(constants.PathHome))
+	homePage := l.Views.Home.CreateHomePage()
+	inOutButton := l.Views.Navbar.CreateInOutButton(info)
+	l.Renderer.Render(writer, request, info, homePage, inOutButton)
 }
 
 // redirectUnauthenticatedUser redirects the unauthenticated user to the login page with the provided email and password.
 func (l *Login) redirectUnauthenticatedUser(writer http.ResponseWriter, request *http.Request, email, password string) {
-	info := l.Context.Informer.NewInfo(request, inf.WithErrors([]string{l.Context.Localizer.Localize(constants.BundleInvalidEmailOrPassword)}))
-	data := viewData.NewLoginData(viewData.WithEmail(email), viewData.WithPassword(password))
-	page := l.Views.Login.CreateLoginPage(info, data)
-	l.Renderer.Render(writer, request, info, page)
+	errorMessage := l.Context.Localizer.Localize(constants.BundleInvalidEmailOrPassword)
+	info := l.Context.Informer.NewInfo(request, inf.WithErrors([]string{errorMessage}))
+	pageData := data.NewLoginData(data.WithEmail(email), data.WithPassword(password))
+	loginPage := l.Views.Login.CreateLoginPage(info, pageData)
+	l.Renderer.Render(writer, request, info, loginPage)
 }

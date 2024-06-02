@@ -99,7 +99,7 @@ func (n *Navbar) CreateOptions(info *info.Info) Node {
 				n.CreateInOutButton(info))))
 }
 
-// CreateInOutButton creates the login/logout button in the navigation bar.
+// CreateInOutButton creates the login/logout button as part of the options in the navigation bar.
 func (n *Navbar) CreateInOutButton(info *info.Info) Node {
 	base := Group([]Node{ID("login-logout"), hx.SwapOOB("true"), Class("btn btn-sm")})
 	if info.IsAuthenticated {

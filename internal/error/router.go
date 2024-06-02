@@ -1,24 +1,18 @@
 package error
 
 import (
-	ctx "base/internal/context"
-	"base/internal/handlers"
-	rend "base/internal/renderer"
-	"base/internal/views"
+	hand "base/internal/handlers"
 	"github.com/go-chi/chi/v5"
 )
 
-// Error is used for routing and handlers regarding errors.
+// Error is used for routing and handling regarding errors.
 type Error struct {
-	Context  *ctx.Context
-	Handlers *handlers.Handlers
-	Views    *views.Views
-	Renderer *rend.Renderer
+	Handlers *hand.Handlers
 }
 
 // NewError returns a new instance of Error.
-func NewError(context *ctx.Context, handlers *handlers.Handlers, views *views.Views, renderer *rend.Renderer) *Error {
-	return &Error{Context: context, Handlers: handlers, Views: views, Renderer: renderer}
+func NewError(handlers *hand.Handlers) *Error {
+	return &Error{Handlers: handlers}
 }
 
 // SetupRouter sets up the error router.

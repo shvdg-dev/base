@@ -2,24 +2,18 @@ package home
 
 import (
 	consts "base/internal/constants"
-	ctx "base/internal/context"
-	"base/internal/handlers"
-	rend "base/internal/renderer"
-	"base/internal/views"
+	hand "base/internal/handlers"
 	"github.com/go-chi/chi/v5"
 )
 
-// Home is used for routing and handlers regarding the home page.
+// Home is used for routing and handling regarding the home page.
 type Home struct {
-	Context  *ctx.Context
-	Handlers *handlers.Handlers
-	Views    *views.Views
-	Renderer *rend.Renderer
+	Handlers *hand.Handlers
 }
 
 // NewHome creates a new instance of the Home.
-func NewHome(context *ctx.Context, handlers *handlers.Handlers, views *views.Views, renderer *rend.Renderer) *Home {
-	return &Home{Context: context, Handlers: handlers, Views: views, Renderer: renderer}
+func NewHome(handlers *hand.Handlers) *Home {
+	return &Home{Handlers: handlers}
 }
 
 // SetupRouter sets up the routes for the Home struct.

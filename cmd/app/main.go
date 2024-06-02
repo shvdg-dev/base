@@ -21,36 +21,36 @@ import (
 // It initializes the context, views, renderer, router,
 // prepares the database, and starts the server.
 func main() {
-	context := ctx.NewContext(initDatabase(), initLocalizer())
+	context := ctx.NewContext(createDatabase(), createLocalizer())
 	views := vi.NewViews(context)
 	renderer := rend.NewRenderer(context, views)
 	handlers := hand.NewHandlers(context, views, renderer)
-	router := initRouter(context, handlers, views, renderer)
+	router := chi.NewRouter()
+	setupMiddleware(router, context, views, renderer)
+	setupRouter(router, context, handlers)
 	prepareDatabase(context)
 	startServer(router)
 }
 
-// initLocalizer initializes a localizer instance, adding the English translation and returning the localizer.
-func initLocalizer() *i18n.Localizer {
+// createLocalizer initializes a localizer instance, adding the English translation and returning the localizer.
+func createLocalizer() *i18n.Localizer {
 	trans := i18n.NewLocalizer()
 	trans.AddLocalization(englishTranslation)
 	return trans
 }
 
-// initRouter initializes and configures the router for the application.
-func initRouter(context *ctx.Context, handlers *hand.Handlers, views *vi.Views, renderer *rend.Renderer) chi.Router {
-	router := chi.NewRouter()
-	initMiddleware(router, context, views, renderer)
+// setupRouter initializes and configures the router for the application.
+func setupRouter(router chi.Router, context *ctx.Context, handlers *hand.Handlers) chi.Router {
 	files.SetupRouter(router)
-	erro.NewError(context, handlers, views, renderer).SetupRouter(router)
-	home.NewHome(context, handlers, views, renderer).SetupRouter(router)
-	docs.NewDocs(context, handlers).SetupRouter(router)
+	erro.NewError(handlers).SetupRouter(router)
+	home.NewHome(handlers).SetupRouter(router)
+	docs.NewDocs(handlers).SetupRouter(router)
 	login.NewLogin(context, handlers).SetupRouter(router)
 	return router
 }
 
-// initMiddleware initializes the middleware using the provided context, views, and renderer.
-func initMiddleware(router chi.Router, context *ctx.Context, views *vi.Views, renderer *rend.Renderer) *midware.Middleware {
+// setupMiddleware initializes the middleware using the provided context, views, and renderer.
+func setupMiddleware(router chi.Router, context *ctx.Context, views *vi.Views, renderer *rend.Renderer) *midware.Middleware {
 	middleware := midware.NewMiddleware(context, views, renderer)
 	router.Use(context.Sessions.Manager.LoadAndSave)
 	router.Use(middleware.Authentication)

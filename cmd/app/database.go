@@ -6,8 +6,8 @@ import (
 	"base/pkg/environment"
 )
 
-// initDatabase initializes the database connection by retrieving the database URL from the environment.
-func initDatabase() *database.Connection {
+// createDatabase initializes the database connection by retrieving the database URL from the environment.
+func createDatabase() *database.Connection {
 	URL := environment.GetValueAsString(databaseUrl)
 	return database.NewConnection(URL)
 }

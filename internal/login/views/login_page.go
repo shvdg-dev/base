@@ -2,8 +2,8 @@ package views
 
 import (
 	consts "base/internal/constants"
-	ctx "base/internal/context"
 	info "base/internal/document/info"
+	"base/internal/login/data"
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
@@ -11,18 +11,8 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
-// Login is used for views regarding logging in.
-type Login struct {
-	Context *ctx.Context
-}
-
-// NewLogin creates a new Login.
-func NewLogin(context *ctx.Context) *Login {
-	return &Login{Context: context}
-}
-
 // CreateLoginPage creates a login page.
-func (l *Login) CreateLoginPage(info *info.Info, data *Data) Node {
+func (l *Login) CreateLoginPage(info *info.Info, data *data.LoginPage) Node {
 	return Div(
 		Header(Text(l.Context.Localizer.Localize(consts.BundleWelcome))),
 		Div(Class("pt-4 flex flex-col space-y-3"),
@@ -33,11 +23,11 @@ func (l *Login) CreateLoginPage(info *info.Info, data *Data) Node {
 }
 
 // CreateLoginForm Creates the login form.
-func (l *Login) CreateLoginForm(info *info.Info, data *Data) Node {
+func (l *Login) CreateLoginForm(info *info.Info, data *data.LoginPage) Node {
 	return FormEl(hx.Post(consts.PathLogin), hx.Target("#content"),
 		Div(Class("flex flex-col space-y-2"),
-			l.CreateMailField(info, data.CurrentEmail),
-			l.CreatePasswordField(info, data.CurrentPassword),
+			l.CreateMailField(info, data.Email),
+			l.CreatePasswordField(info, data.Password),
 			l.CreateLoginButton()))
 }
 

@@ -3,6 +3,7 @@ package handlers
 import (
 	"base/internal/constants"
 	inf "base/internal/document/info"
+	viewData "base/internal/login/data"
 	"base/pkg/utils"
 	"net/http"
 )
@@ -41,7 +42,7 @@ func (l *Login) redirectAuthenticatedUser(writer http.ResponseWriter, request *h
 // redirectUnauthenticatedUser redirects the unauthenticated user to the login page with the provided email and password.
 func (l *Login) redirectUnauthenticatedUser(writer http.ResponseWriter, request *http.Request, email, password string) {
 	info := l.Context.Informer.NewInfo(request, inf.WithErrors([]string{l.Context.Localizer.Localize(constants.BundleInvalidEmailOrPassword)}))
-	data := l.Views.Login.NewData(email, password)
+	data := viewData.NewLogin(viewData.WithEmail(email), viewData.WithPassword(password))
 	page := l.Views.Login.CreateLoginPage(info, data)
 	l.Renderer.Render(writer, request, info, page)
 }

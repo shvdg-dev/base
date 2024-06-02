@@ -2,7 +2,7 @@ package sessions
 
 import (
 	consts "base/internal/constants"
-	"base/pkg/database"
+	"base/pkg/base/database"
 	"github.com/alexedwards/scs/postgresstore"
 	"github.com/alexedwards/scs/v2"
 	"log"

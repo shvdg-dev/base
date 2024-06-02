@@ -5,6 +5,7 @@ import (
 	"base/internal/docs"
 	erro "base/internal/error"
 	"base/internal/files"
+	hand "base/internal/handlers"
 	"base/internal/home"
 	"base/internal/login"
 	midware "base/internal/middleware"
@@ -23,7 +24,8 @@ func main() {
 	context := ctx.NewContext(initDatabase(), initLocalizer())
 	views := vi.NewViews(context)
 	renderer := rend.NewRenderer(context, views)
-	router := initRouter(context, views, renderer)
+	handlers := hand.NewHandlers(context, views, renderer)
+	router := initRouter(context, handlers, views, renderer)
 	prepareDatabase(context)
 	startServer(router)
 }
@@ -36,14 +38,14 @@ func initLocalizer() *i18n.Localizer {
 }
 
 // initRouter initializes and configures the router for the application.
-func initRouter(context *ctx.Context, views *vi.Views, renderer *rend.Renderer) chi.Router {
+func initRouter(context *ctx.Context, handlers *hand.Handlers, views *vi.Views, renderer *rend.Renderer) chi.Router {
 	router := chi.NewRouter()
 	initMiddleware(router, context, views, renderer)
 	files.SetupRouter(router)
-	erro.NewError(context, views, renderer).SetupRouter(router)
-	home.NewHome(context, views, renderer).SetupRouter(router)
-	docs.NewDocs(context, views, renderer).SetupRouter(router)
-	login.NewLogin(context, views, renderer).SetupRouter(router)
+	erro.NewError(context, handlers, views, renderer).SetupRouter(router)
+	home.NewHome(context, handlers, views, renderer).SetupRouter(router)
+	docs.NewDocs(context, handlers, views, renderer).SetupRouter(router)
+	login.NewLogin(context, handlers).SetupRouter(router)
 	return router
 }
 

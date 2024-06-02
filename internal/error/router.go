@@ -4,6 +4,7 @@ import (
 	consts "base/internal/constants"
 	ctx "base/internal/context"
 	doc "base/internal/document/info"
+	"base/internal/handlers"
 	rend "base/internal/renderer"
 	"base/internal/views"
 	"github.com/go-chi/chi/v5"
@@ -13,13 +14,14 @@ import (
 // Error is used for routing and handlers regarding errors.
 type Error struct {
 	Context  *ctx.Context
+	Handlers *handlers.Handlers
 	Views    *views.Views
 	Renderer *rend.Renderer
 }
 
 // NewError returns a new instance of Error.
-func NewError(context *ctx.Context, views *views.Views, renderer *rend.Renderer) *Error {
-	return &Error{Context: context, Views: views, Renderer: renderer}
+func NewError(context *ctx.Context, handlers *handlers.Handlers, views *views.Views, renderer *rend.Renderer) *Error {
+	return &Error{Context: context, Handlers: handlers, Views: views, Renderer: renderer}
 }
 
 // SetupRouter sets up the error router.

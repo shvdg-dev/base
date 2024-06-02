@@ -1,0 +1,3 @@
+[submodule "base-pkg"]
+	path = pkg
+	url = https://github.com/shvdg-dev/base-pkg.git

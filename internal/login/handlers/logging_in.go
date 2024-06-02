@@ -4,7 +4,7 @@ import (
 	"base/internal/constants"
 	inf "base/internal/info"
 	data "base/internal/login/data"
-	"base/pkg/base/utils"
+	"base/pkg/utils"
 	"net/http"
 )
 

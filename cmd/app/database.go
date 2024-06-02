@@ -2,8 +2,8 @@ package main
 
 import (
 	ctx "base/internal/context"
-	"base/pkg/base/database"
-	"base/pkg/base/environment"
+	"base/pkg/database"
+	"base/pkg/environment"
 )
 
 // createDatabase initializes the database connection by retrieving the database URL from the environment.

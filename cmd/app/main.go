@@ -11,7 +11,7 @@ import (
 	midware "base/internal/middleware"
 	rend "base/internal/renderer"
 	vi "base/internal/views"
-	"base/pkg/base/i18n"
+	"base/pkg/i18n"
 	"github.com/go-chi/chi/v5"
 	"log"
 	"net/http"

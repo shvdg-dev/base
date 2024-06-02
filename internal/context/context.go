@@ -4,9 +4,9 @@ import (
 	"base/internal/info"
 	sess "base/internal/sessions"
 	"base/internal/users"
-	"base/pkg/base/database"
-	"base/pkg/base/i18n"
-	loggr "base/pkg/base/logger"
+	"base/pkg/database"
+	"base/pkg/i18n"
+	loggr "base/pkg/logger"
 )
 
 // Context represents the execution context of the application.

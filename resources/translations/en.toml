@@ -15,7 +15,7 @@ NotAuthenticatedTitle = "401 - Not authenticated, whoops!"
 Home = "Home"
 Docs = "Docs"
 NavigateToLogin = "Go to login"
-NavigateToHome = "Go to home"
+NavigateToHome = "Come back home"
 PageNotFound = "This page does not even exist!?"
 PageNotFoundTitle = "404 - Page not found!"
 

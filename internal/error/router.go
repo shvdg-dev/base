@@ -1,14 +1,11 @@
 package error
 
 import (
-	consts "base/internal/constants"
 	ctx "base/internal/context"
 	"base/internal/handlers"
-	doc "base/internal/info"
 	rend "base/internal/renderer"
 	"base/internal/views"
 	"github.com/go-chi/chi/v5"
-	"net/http"
 )
 
 // Error is used for routing and handlers regarding errors.
@@ -26,9 +23,5 @@ func NewError(context *ctx.Context, handlers *handlers.Handlers, views *views.Vi
 
 // SetupRouter sets up the error router.
 func (e *Error) SetupRouter(router chi.Router) {
-	router.NotFound(func(w http.ResponseWriter, r *http.Request) {
-		info := e.Context.Informer.NewInfo(r, doc.WithTitle(e.Context.Localizer.Localize(consts.BundlePageNotFoundTitle)))
-		page := e.Views.Error.CreatePageNotFound()
-		e.Renderer.Render(w, r, info, page)
-	})
+	router.NotFound(e.Handlers.Error.NotFound())
 }

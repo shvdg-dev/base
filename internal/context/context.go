@@ -24,7 +24,7 @@ func NewContext(database *database.Connection, localizer *i18n.Localizer) *Conte
 	return &Context{
 		Localizer: localizer,
 		Logger:    loggr.NewLogger(),
-		Informer:  info.NewInformant(sessions),
+		Informer:  info.NewInformer(sessions),
 		Sessions:  sessions,
 		Users:     users.NewService(database)}
 }

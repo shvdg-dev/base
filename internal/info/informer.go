@@ -10,8 +10,8 @@ type Informer struct {
 	Sessions *sessions.Service
 }
 
-// NewInformant creates a new Informant instance.
-func NewInformant(sessions *sessions.Service) *Informer {
+// NewInformer creates a new Informer instance.
+func NewInformer(sessions *sessions.Service) *Informer {
 	return &Informer{Sessions: sessions}
 }
 

@@ -24,6 +24,6 @@ func NewHome(context *ctx.Context, handlers *handlers.Handlers, views *views.Vie
 
 // SetupRouter sets up the routes for the Home struct.
 func (h *Home) SetupRouter(router chi.Router) {
-	router.Get("/", h.HandleHomePage)
-	router.Get(consts.PathHome, h.HandleHomePage)
+	router.Get("/", h.Handlers.Home.HomePage)
+	router.Get(consts.PathHome, h.Handlers.Home.HomePage)
 }

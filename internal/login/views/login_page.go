@@ -12,7 +12,7 @@ import (
 )
 
 // CreateLoginPage creates a login page.
-func (l *Login) CreateLoginPage(info *info.Info, data *data.LoginPage) Node {
+func (l *Login) CreateLoginPage(info *info.Info, data *data.LoginData) Node {
 	return Div(
 		Header(Text(l.Context.Localizer.Localize(consts.BundleWelcome))),
 		Div(Class("pt-4 flex flex-col space-y-3"),
@@ -23,7 +23,7 @@ func (l *Login) CreateLoginPage(info *info.Info, data *data.LoginPage) Node {
 }
 
 // CreateLoginForm Creates the login form.
-func (l *Login) CreateLoginForm(info *info.Info, data *data.LoginPage) Node {
+func (l *Login) CreateLoginForm(info *info.Info, data *data.LoginData) Node {
 	return FormEl(hx.Post(consts.PathLogin), hx.Target("#content"),
 		Div(Class("flex flex-col space-y-2"),
 			l.CreateMailField(info, data.Email),

@@ -1,31 +1,31 @@
 package data
 
-// LoginPage holds all the data relevant for the LoginPage page.
-type LoginPage struct {
+// LoginData holds all the data relevant for any login view.
+type LoginData struct {
 	Email    string
 	Password string
 }
 
-// LoginOption is a function that applies a specific configuration to a LoginPage instance.
-type LoginOption func(*LoginPage)
+// LoginOption is a function that applies a specific configuration to a LoginData instance.
+type LoginOption func(*LoginData)
 
 // WithEmail is the option setter for the email field.
 func WithEmail(email string) LoginOption {
-	return func(d *LoginPage) {
+	return func(d *LoginData) {
 		d.Email = email
 	}
 }
 
 // WithPassword is the option setter for the password field.
 func WithPassword(password string) LoginOption {
-	return func(d *LoginPage) {
+	return func(d *LoginData) {
 		d.Password = password
 	}
 }
 
-// NewLogin creates a new instance of LoginPage with some Options.
-func NewLogin(options ...LoginOption) *LoginPage {
-	data := &LoginPage{}
+// NewLoginData creates a new instance of LoginData with some Options.
+func NewLoginData(options ...LoginOption) *LoginData {
+	data := &LoginData{}
 	for _, option := range options {
 		option(data)
 	}

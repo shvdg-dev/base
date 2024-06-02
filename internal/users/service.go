@@ -1,8 +1,8 @@
 package users
 
 import (
-	"base/pkg/database"
-	"base/pkg/utils"
+	"base/pkg/base/database"
+	"base/pkg/base/utils"
 	_ "github.com/lib/pq"
 
 	"log"

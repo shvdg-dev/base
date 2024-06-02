@@ -8,7 +8,7 @@ import (
 
 // createDatabase initializes the database connection by retrieving the database URL from the environment.
 func createDatabase() *database.Connection {
-	URL := environment.GetValueAsString(databaseUrl)
+	URL := environment.GetValueAsString(databaseUrlKey)
 	return database.NewConnection(URL)
 }
 

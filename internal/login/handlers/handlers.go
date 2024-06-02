@@ -6,7 +6,7 @@ import (
 	"base/internal/views"
 )
 
-// Login represents a handler regarding logging in or out.
+// Login is used for handlers regarding logging in or out.
 type Login struct {
 	Context  *ctx.Context
 	Views    *views.Views

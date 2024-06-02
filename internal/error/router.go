@@ -3,8 +3,8 @@ package error
 import (
 	consts "base/internal/constants"
 	ctx "base/internal/context"
-	doc "base/internal/document/info"
 	"base/internal/handlers"
+	doc "base/internal/info"
 	rend "base/internal/renderer"
 	"base/internal/views"
 	"github.com/go-chi/chi/v5"

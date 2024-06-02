@@ -7,7 +7,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-// Login is used for routing and hand regarding logging in.
+// Login is used for routing and handling regarding logging in or out.
 type Login struct {
 	Context  *ctx.Context
 	Handlers *hand.Handlers

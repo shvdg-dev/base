@@ -2,7 +2,7 @@ package views
 
 import (
 	consts "base/internal/constants"
-	info "base/internal/document/info"
+	"base/internal/info"
 	"base/internal/login/data"
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"

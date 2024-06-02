@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"base/internal/constants"
-	info2 "base/internal/document/info"
+	info2 "base/internal/info"
 	"net/http"
 )
 

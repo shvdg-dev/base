@@ -2,7 +2,7 @@ package document
 
 import (
 	ctx "base/internal/context"
-	"base/internal/document/info"
+	"base/internal/info"
 	vi "base/internal/views"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"
@@ -10,11 +10,13 @@ import (
 	. "github.com/maragudk/gomponents/html"
 )
 
+// Document represents a document, used for wrapping content in.
 type Document struct {
 	Context *ctx.Context
 	Views   *vi.Views
 }
 
+// NewDocument creates a new instance of Document.
 func NewDocument(context *ctx.Context, views *vi.Views) *Document {
 	return &Document{Context: context, Views: views}
 }

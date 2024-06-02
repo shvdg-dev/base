@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"base/internal/constants"
-	inf "base/internal/document/info"
+	inf "base/internal/info"
 	viewData "base/internal/login/data"
 	"net/http"
 )

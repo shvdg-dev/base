@@ -3,7 +3,7 @@ package navbar
 import (
 	consts "base/internal/constants"
 	ctx "base/internal/context"
-	"base/internal/document/info"
+	"base/internal/info"
 	icons "github.com/eduardolat/gomponents-lucide"
 	. "github.com/maragudk/gomponents"
 	hx "github.com/maragudk/gomponents-htmx"

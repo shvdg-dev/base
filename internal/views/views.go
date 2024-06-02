@@ -9,7 +9,7 @@ import (
 	. "base/internal/login/views"
 )
 
-// Views represents a collection of views, made accessible throughout the app.
+// Views represents a collection of views.
 type Views struct {
 	Navbar *Navbar
 	Home   *Home

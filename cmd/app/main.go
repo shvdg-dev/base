@@ -44,7 +44,7 @@ func initRouter(context *ctx.Context, handlers *hand.Handlers, views *vi.Views, 
 	files.SetupRouter(router)
 	erro.NewError(context, handlers, views, renderer).SetupRouter(router)
 	home.NewHome(context, handlers, views, renderer).SetupRouter(router)
-	docs.NewDocs(context, handlers, views, renderer).SetupRouter(router)
+	docs.NewDocs(context, handlers).SetupRouter(router)
 	login.NewLogin(context, handlers).SetupRouter(router)
 	return router
 }

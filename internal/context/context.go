@@ -1,7 +1,7 @@
 package context
 
 import (
-	"base/internal/document/info"
+	"base/internal/info"
 	sess "base/internal/sessions"
 	"base/internal/users"
 	"base/pkg/database"

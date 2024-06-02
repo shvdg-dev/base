@@ -2,7 +2,7 @@ package home
 
 import (
 	consts "base/internal/constants"
-	doc "base/internal/document/info"
+	doc "base/internal/info"
 	"net/http"
 )
 

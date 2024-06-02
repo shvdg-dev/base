@@ -4,7 +4,7 @@ import (
 	consts "base/internal/constants"
 	ctx "base/internal/context"
 	doc "base/internal/document"
-	"base/internal/document/info"
+	"base/internal/info"
 	vi "base/internal/views"
 	. "github.com/maragudk/gomponents"
 	hxhttp "github.com/maragudk/gomponents-htmx/http"

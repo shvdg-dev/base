@@ -3,7 +3,7 @@ package middleware
 import (
 	consts "base/internal/constants"
 	ctx "base/internal/context"
-	doc "base/internal/document/info"
+	doc "base/internal/info"
 	rend "base/internal/renderer"
 	vi "base/internal/views"
 	"net/http"

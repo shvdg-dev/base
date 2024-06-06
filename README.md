@@ -1,1 +1,1 @@
-Base Go, HTMX, Tailwind, and daisyUI project structure.
+WIP - Base Go, HTMX, Tailwind, and daisyUI project structure.
